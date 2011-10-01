@@ -278,8 +278,8 @@ vector<TargetEntry> Targets;
 public:
 	
 	
-	graphic(int argc, char *argv[]) : compas(), graphicmain(argc,argv), window(), path(), flags(), send("Compilieren", false), filechose("Datei auswählen", false),
-	execute("Programm ausführen", false), object_code("Objektcode?", false), debugb("Debug mode?", false)
+	graphic(int argc, char *argv[]) : compas(), graphicmain(argc,argv), window(), path(), flags(), send("Compile", false), filechose("Datei auswählen", false),
+	execute("Execute program", false), object_code("Objectcode?", false), debugb("Debug mode?", false)
 	{
 		//Declarations
 		spini=0;
@@ -288,10 +288,10 @@ public:
 		
 		
 		//Label 
-		pathl.set_text("Pfad: ");
-		flagsl.set_text("zusätzliche Compilerargumente: ");
-		optimal.set_text("Optimierungsgrad:\nleer=keine Optimierung");
-		argumentsl.set_text("Executable Argumente");
+		pathl.set_text("Path: ");
+		flagsl.set_text("Additional compiler arguments: ");
+		optimal.set_text("Optimization level:\nempty=no optimization");
+		argumentsl.set_text("Arguments for executatable");
 		
 		//window
 		window.set_title( "Asaus Compiler");
