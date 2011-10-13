@@ -146,7 +146,7 @@ public:
 	
 	void compile()
 	{
-			string summaryc="/usr/bin/g++ -Wall "+prepare(true)+gflagtrans()+" "+path;
+			string summaryc="/usr/bin/xterm -hold -e /usr/bin/g++ -Wall "+prepare(true)+gflagtrans()+" "+path;
 			system(summaryc.c_str());
 	}	
 	
