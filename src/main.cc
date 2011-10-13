@@ -33,9 +33,25 @@
  * 
  */
 
-#include <gtkmm.h>
+#include <gtkmm/main.h>
+#include <gtkmm/window.h>
+#include <gtkmm/widget.h>
+#include <gtkmm/grid.h>
+#include <gtkmm/label.h>
+#include <gtkmm/entry.h>
+#include <gtkmm/button.h>
+#include <gtkmm/checkbutton.h>
+#include <gtkmm/spinner.h>
+#include <gtkmm/filechooserdialog.h>
+#include <gtkmm/enums.h>
+#include <gtkmm/stock.h>
+
+#include <gdkmm-3.0/gdkmm/event.h>
+
+
 #include <pthread.h>
-#include <iostream>
+//#include <iostream>
+#include <sigc++/sigc++.h>
 #include <cstdlib>
 #include <string>
 
@@ -138,7 +154,7 @@ public:
 	static void *execute(void *as)
 	{
 		
-		if (((asaus *)as)->prepare(false)!="")
+		if (((asaus *)as)->prepare(false)!="" && ((asaus *)as)->is_execute==false)
 		{
 			string summarye="/usr/bin/xterm -hold -e "+((asaus *)as)->prepare(false)+" "+((asaus *)as)->arguments;
 			((asaus *)as)->is_execute=true;
@@ -161,7 +177,7 @@ public:
 
 bool fin(GdkEventAny*)
 {
-	cout << "Goodbye" << endl;
+	//cout << "Goodbye" << endl;
 	return false;
 };
 
@@ -198,8 +214,6 @@ vector<TargetEntry> Targets;
 			break;
 			case(RESPONSE_CANCEL):
 			break;
-			default: cerr << "Invalid button" << endl;
-			break;
 		}
 	}
 	
@@ -217,8 +231,6 @@ vector<TargetEntry> Targets;
 			temp.erase(0,7);
 			temp.erase(temp.end()-2,temp.end());
 		}
-		else
-		cout << temp.find("file://");
 		path.set_text(temp);
 		context->drag_finish(false, true, time);	
 	}
