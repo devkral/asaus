@@ -1,2 +1,5 @@
 
-
+Nov 12 2011
+-fix bug killing the sourcecode
+-clean the code
+-remove dependency on clang

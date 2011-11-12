@@ -74,28 +74,15 @@ class asaus{
 	string prepare(bool compile)
 	{
 		unsigned int pathlength=path.length();
+		bool cond_false=false;
 		string patho=path;
-		if (path.rfind(".o")==pathlength-2)
+		if (path.rfind(".")>=pathlength-4 && path.rfind(".") <=pathlength)
+			patho.erase(patho.rfind("."),pathlength);
+		else
 		{
-			patho.erase(patho.rfind(".o"),patho.find_last_of(".o"));
-		};
-		if (path.rfind(".cc")==pathlength-3)
-		{
-			patho.erase(patho.rfind(".cc"),patho.find_last_of(".cc"));
-		};
-		if (path.rfind(".cxx")==pathlength-4)
-		{
-			patho.erase(patho.rfind(".cxx"),patho.find_last_of(".cxx"));
-		};
-		if (path.rfind(".cpp")==pathlength-4)
-		{
-			patho.erase(patho.rfind(".cpp"),patho.find_last_of(".cpp"));
-		};
-		
-		if (path.rfind(".o") > pathlength-2 && path.rfind(".cc") > pathlength-3 && path.rfind(".cxx") > pathlength-4 && path.rfind(".cpp") > pathlength-4 && compile==false)
-		{
-			patho=path;
+			patho+=".out";
 		}
+
 		
 		if (compile==false)
 		{
@@ -104,7 +91,7 @@ class asaus{
 		else
 		{
 			if (obcode==true)
-			return "-o "+patho+".o"+" "+flags;
+			return "-o "+patho+".o "+flags;
 			else
 			return "-o "+patho+" "+flags;
 		}
@@ -160,7 +147,8 @@ public:
 			((asaus *)as)->is_execute=true;
 			system(summarye.c_str());
 			((asaus *)as)->is_execute=false;
-		}
+		}		
+			
 		return 0;
 	};
 	
@@ -259,8 +247,7 @@ vector<TargetEntry> Targets;
 	{
 		if (spini!=0)
 		pthread_join(spini, NULL);
-		pthread_create(&spini,NULL,&graphic::spinan,this);
-		
+		pthread_create(&spini,NULL,&graphic::spinan,this);	
 	}
 	
 	void exe()
