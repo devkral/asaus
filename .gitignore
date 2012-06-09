@@ -8,6 +8,7 @@
 
 /Debug
 
+# copied from github template
 # http://www.gnu.org/software/automake
 
 Makefile.in
