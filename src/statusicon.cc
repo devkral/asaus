@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * main.cc
- * Copyright (C) 2012 alex <alex@archal>
+ * asaus
+ * Copyright (C) alex 2012 <alex@archal>
  * 
  * asaus is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -17,12 +17,30 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//For testing use the local icon
+#define ICON_FILE "src/asaus.png"
 
+
+#include "statusicon.h"
 #include "gui.h"
-   
-int
-main (int argc, char *argv[])
+#include <iostream>
+
+statusicon::statusicon(gui *refbackt)
 {
-gui(argc,argv);
-return 0;
+	refback=refbackt;
+	icon=Gtk::StatusIcon::create("Asaus");
+	icon->set_from_file(ICON_FILE);
+
+	Targets.push_back( Gtk::TargetEntry("STRING") );
+	Targets.push_back( Gtk::TargetEntry("text/plain") );
+	icon->signal_activate().connect( sigc::mem_fun(*this,&statusicon::hideshow) );
+
+}
+
+void statusicon::hideshow()
+{
+	if (refback->isvisible()==true)
+		refback->hide();
+	else
+		refback->show();
 }

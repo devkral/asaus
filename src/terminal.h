@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * main.cc
- * Copyright (C) 2012 alex <alex@archal>
+ * asaus
+ * Copyright (C) alex 2012 <alex@archal>
  * 
  * asaus is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -18,11 +18,34 @@
  */
 
 
-#include "gui.h"
-   
-int
-main (int argc, char *argv[])
+
+#include <string>
+#include <gtkmm.h>
+
+
+#ifndef _TERMINAL_H_
+#define _TERMINAL_H_
+
+class terminal
 {
-gui(argc,argv);
-return 0;
-}
+public:
+	terminal();
+	~terminal();
+	Gtk::Widget *givevteterm();
+	std::string makecompatible(std::string input);
+	void feedexe (std::string input);
+	void feedtext(std::string input);
+	void reset();
+
+protected:
+
+private:
+	GtkWidget* vteterm=0;
+	Gtk::Widget* vtetermcc=0;
+	GPid pidterm;
+	//neccessary for vte_terminal_fork_command_full
+	GError *err=0;
+	
+};
+
+#endif // _TERMINAL_H_

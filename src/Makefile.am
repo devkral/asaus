@@ -3,11 +3,14 @@
 ## Created by Anjuta
 
 
+uidir = $(pkgdatadir)/ui
+ui_DATA = asaus.ui
+
 
 AM_CPPFLAGS = \
-	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
+	-DPACKAGE_LOCALE_DIR=\""$(localedir)"\" \
 	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
-	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
+	-DPACKAGE_DATA_DIR=\""$(pkgdatadir)"\" \
 	$(ASAUS_CFLAGS)
 
 AM_CFLAGS =\
@@ -17,7 +20,20 @@ AM_CFLAGS =\
 bin_PROGRAMS = asaus
 
 asaus_SOURCES = \
-	main.cc
+	main.cc \
+	gui.cc \
+	gui.h \
+	executecode.cc \
+	executecode.h \
+	compilefrontend.cc \
+	compilefrontend.h \
+	terminal.cc \
+	terminal.h \
+	statusicon.cc \
+	statusicon.h
+
+asaus_CXXFLAGS = -std=c++11 \
+	-std=gnu++11 
 
 asaus_LDFLAGS = 
 
@@ -29,5 +45,5 @@ EXTRA_DIST = $(ui_DATA)
 # Remove ui directory on uninstall
 uninstall-local:
 	-rm -r $(uidir)
-	-rm -r $(datadir)/asaus
+	-rm -r $(pkgdatadir)
 

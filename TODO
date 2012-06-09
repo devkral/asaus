@@ -1,0 +1,9 @@
+Things which need to be done
+
++safepointer/smartpointer evtl
++better icon
++make colors working e.g. paint it red
++find a better solution than printing "path entry is empty" in the terminal
++better close dialog
++hide completely
++make spinner work (->redesign)

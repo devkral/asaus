@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * main.cc
- * Copyright (C) 2012 alex <alex@archal>
+ * asaus
+ * Copyright (C) alex 2012 <alex@archal>
  * 
  * asaus is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -18,11 +18,30 @@
  */
 
 
-#include "gui.h"
-   
-int
-main (int argc, char *argv[])
+
+#include <vector>
+#include <string>
+#include <gtkmm.h>
+
+class gui;
+
+#ifndef _STATUSICON_H_
+#define _STATUSICON_H_
+
+class statusicon
 {
-gui(argc,argv);
-return 0;
-}
+public:
+	statusicon(gui *refbackt);
+
+protected:
+	//Glib::RefPtr<gui> refback 
+	gui* refback;
+
+private:
+	Glib::RefPtr<Gtk::StatusIcon> icon;
+	void hideshow();
+	std::vector<Gtk::TargetEntry> Targets;
+
+};
+
+#endif // _STATUSICON_H_

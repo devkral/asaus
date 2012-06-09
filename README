@@ -1,5 +1,5 @@
-asaus is a graphic frontend for g++
+This is a hobby project of mine (using vte3).
+It is a graphical frontend for gcc, Makefile and autogen. 
 
-FEATURES:
-- drag-and-drop-support
-- easy to use
+I thin it is nice already but it is not finished yet.
+Please have a look into the todo section.
