@@ -77,3 +77,8 @@ Gtk::Widget *executecode::givevteterm()
 {
 	return ownterm.givevteterm();
 }
+
+executecode::~executecode()
+{
+	refback=0;
+}

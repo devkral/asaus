@@ -18,16 +18,24 @@
  */
 
 #include "gui.h"
-//#include "executecode.h"
 
 #include <iostream>
 
-#include <chrono>
-#include <ctime>
+//#include <chrono>
+//#include <ctime>
+#include <cassert>
+#include <unistd.h>
 
+
+template< class T_CppObject > Glib::RefPtr<T_CppObject>
+transform_to_rptr(const Glib::RefPtr< Glib::Object >& p)
+{
+	return Glib::RefPtr<T_CppObject>::cast_dynamic(p);
+}
 
 gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethread(this),iconthread(this)
 {
+	visiblestate=0;
 	Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create();
 	try
 	{
@@ -47,8 +55,8 @@ gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethr
 	}
 
 	//now get root window
-	builder->get_widget("main_window", main_win);
-
+	main_win=transform_to_rptr<Gtk::Window>(builder->get_object("main_window"));
+	
 	//init basics
 	//init drag
 	Targets.push_back( Gtk::TargetEntry("STRING") );
@@ -61,56 +69,61 @@ gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethr
 
 	//init hide completely
 	//main_win->
-	//main_win->signal_size_allocate().connect(sigc::mem_fun(*this,&gui::on_window_iconify));
+	//main_win->signal_size_allocate().connect(sigc::mem_fun(*this,&gui::hideshow2));
+	//main_win->signal_unmap().connect(sigc::mem_fun(*this,&gui::hideshow2));
+	main_win->signal_window_state_event().connect (sigc::mem_fun(*this,&gui::on_my_window_state_event));
 	
 	//Spinner
-	builder->get_widget("movecont", movecont);
-	builder->get_widget("spinner1", spinner1);
+	spinner1=transform_to_rptr<Gtk::Spinner>(builder->get_object("spinner1"));
+	//how many processes use spinner
+	spinuser=0;
 	
 	//for terminal
-	builder->get_widget("termspace", terminal);
-
+	terminal=transform_to_rptr<Gtk::Alignment>(builder->get_object("termspace"));
 	
 
+	
 	//for different options (compile/execute)
-	builder->get_widget("actionchoose", actionchoose);
+	actionchoose=transform_to_rptr<Gtk::Alignment>(builder->get_object("actionchoose"));
 	//elements of execute
-	builder->get_widget("exeops", exeops);
-	
-	builder->get_widget("exeargs", exeargs);
+	exeops=transform_to_rptr<Gtk::Grid>(builder->get_object("exeops"));
+	exeargs=transform_to_rptr<Gtk::Entry>(builder->get_object("exeargs"));
 
 	//elements of compile
-	builder->get_widget("compops", compops);
-
-	builder->get_widget("debugbutton", debugbutton);
-	builder->get_widget("obbutton", obbutton);
-	builder->get_widget("optimizelevel", opimizelevel);
-	builder->get_widget("compargs", compargs);
+	compops=transform_to_rptr<Gtk::Grid>(builder->get_object("compops"));
+	
+	debugbutton=transform_to_rptr<Gtk::CheckButton>(builder->get_object("debugbutton"));
+	assert(debugbutton);
+	obbutton=transform_to_rptr<Gtk::CheckButton>(builder->get_object("obbutton"));
+	assert(obbutton);
+	optimizelevel=transform_to_rptr<Gtk::Entry>(builder->get_object("optimizelevel"));
+	assert(optimizelevel);
+	compargs=transform_to_rptr<Gtk::Entry>(builder->get_object("compargs"));
+	assert(compargs);
 	
 	//choose compops first
-	actionchoose->add(*compops);
+	actionchoose->add(*compops.operator->());
 	actionchoose->show_all_children ();
 	
 	//radio button
-	builder->get_widget("radiobutton1", compilechosebutton);
-	builder->get_widget("radiobutton2", compilechosebutton2);
+	compilechosebutton=transform_to_rptr<Gtk::RadioButton>(builder->get_object("radiobutton1"));
+	compilechosebutton2=transform_to_rptr<Gtk::RadioButton>(builder->get_object("radiobutton2"));
 	compilechosebutton->signal_toggled ().connect(sigc::mem_fun(*this,&gui::changeaction));
 
 	//change to execute and execute then
-	builder->get_widget("execute", execute);
+	execute=transform_to_rptr<Gtk::Button>(builder->get_object("execute"));
 	execute->signal_clicked ().connect(sigc::mem_fun(*this,&gui::exeact));
 	//change to compile and compile then
-	builder->get_widget("compile", compilebutton);
+	compilebutton=transform_to_rptr<Gtk::Button>(builder->get_object("compile"));
 	compilebutton->signal_clicked ().connect(sigc::mem_fun(*this,&gui::compact));
 
 	//filechoose
-	builder->get_widget("filechoosebutton", filechoosebutton);
+	filechoosebutton=transform_to_rptr<Gtk::Button>(builder->get_object("filechoosebutton"));
 	filechoosebutton->signal_clicked ().connect(sigc::mem_fun(*this,&gui::fileact));
-	builder->get_widget("fileentry", fileentry);
+	fileentry=transform_to_rptr<Gtk::Entry>(builder->get_object("fileentry"));
 	fileentry->signal_editing_done().connect(sigc::mem_fun(*this,&gui::paintitwhite));
 	lastfile="";
 
-	movecont->show_all_children();
 	spinner1->hide();
 
 	settermspace(*compilethread.givevteterm());
@@ -129,45 +142,41 @@ void gui::changeaction()
 	if (compilechosebutton->get_active())
 	{
 		actionchoose->remove();
-		actionchoose->add(*compops);
+		actionchoose->add(*compops.operator->());
 		actionchoose->show_all_children ();
 		settermspace(*compilethread.givevteterm());
 	}
 	else
 	{
 		actionchoose->remove();
-		actionchoose->add(*exeops);
+		actionchoose->add(*exeops.operator->());
 		actionchoose->show_all_children ();
 		settermspace(*executethread.givevteterm());
 	}
 	
 }
-int gui::startspin()
+void gui::startspin()
 {
-	auto now=std::chrono::steady_clock::now();
-	bool temp=blockspin.try_lock_until(now+std::chrono::milliseconds(500));
-	if(temp)
+	if (spinuser==0)
 	{
-		//movecont->show_all_children();
 		spinner1->show();
 		spinner1->start();
-		blockspin.unlock();
-		return 0;
+		spinuser++;
 	}
 	else
-		return 1;
+		spinuser++;
 }
 
 void gui::stopspin()
 {
-	auto now=std::chrono::steady_clock::now();
-	bool temp=blockspin.try_lock_until(now+std::chrono::milliseconds(500));
-	if(temp)
+	if (spinuser<=1)
 	{
 		spinner1->stop();
 		spinner1->hide();
-		blockspin.unlock();
+		spinuser=0;
 	}
+	else
+		spinuser--;
 }
 //get method block
 
@@ -197,7 +206,7 @@ bool gui::isdebug()
 
 std::string gui::optimizegrade()
 {
-	return opimizelevel->get_text();
+	return optimizelevel->get_text();
 }
 
 //block end
@@ -210,6 +219,7 @@ bool gui::isvisible()
 
 void gui::exeact()
 {
+	
 	startspin();
 	compilechosebutton2->set_active(true);
 	settermspace(*executethread.givevteterm());
@@ -296,7 +306,7 @@ void gui::paintitwhite()
 
 int gui::fileentrylength()
 {
-	fileentry->get_text_length ();
+	fileentry->get_text_length();
 }
 
 void gui::drag_data_get(const Glib::RefPtr<Gdk::DragContext>& context, int, int,
@@ -312,6 +322,7 @@ void gui::drag_data_get(const Glib::RefPtr<Gdk::DragContext>& context, int, int,
 
 void gui::show()
 {
+	main_win->deiconify();
 	main_win->show();
 }
 
@@ -328,7 +339,7 @@ bool gui::closebutton(GdkEventAny*)
 	closedialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
 	//closedialog.set_title("Close program completely?");
 	//closedialog.set_transient_for (*main_win);
-	closedialog.set_attached_to (*main_win);
+	closedialog.set_attached_to (*main_win.operator->());
 	closedialog.set_skip_taskbar_hint(true);
 	main_win->set_opacity (0.8);
 	
@@ -349,4 +360,42 @@ bool gui::closebutton(GdkEventAny*)
 			main_win->set_opacity (1);
 			return true;
 	}
+}
+
+bool gui::on_my_window_state_event(GdkEventWindowState* event)
+{
+	if (event->new_window_state==GDK_WINDOW_STATE_ICONIFIED)
+	{	
+		hide();
+		return false;
+	}
+	else
+		return false;
+}
+
+void gui::hideshow2(Gtk::Allocation& allocation)
+{
+	
+	/**if (visiblestate>=5 || visiblestate==0)
+	{
+		hideshow();
+		visiblestate=0;
+	}
+	visiblestate++;*/
+	std::cout << "test" ;//<< t->state;
+	//if (t->state==Gdk::GDK_VISIBILITY_FULLY_OBSCURED || t->state==Gdk::GDK_VISIBILITY_PARTIAL)
+	if (isvisible()==false)
+		hide();
+}
+
+void gui::hideshow()
+{
+	if (isvisible()==true)
+		hide();
+	else
+		show();
+}
+
+gui::~gui()
+{
 }

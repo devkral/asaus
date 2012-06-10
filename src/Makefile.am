@@ -4,7 +4,8 @@
 
 
 uidir = $(pkgdatadir)/ui
-ui_DATA = asaus.ui
+ui_DATA = asaus.ui \
+	asaus.png
 
 
 AM_CPPFLAGS = \

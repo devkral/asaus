@@ -21,7 +21,7 @@
 
 #include <string>
 #include <gtkmm.h>
-
+#include <memory>
 
 #ifndef _TERMINAL_H_
 #define _TERMINAL_H_

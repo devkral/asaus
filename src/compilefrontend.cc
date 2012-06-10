@@ -45,7 +45,6 @@ std::string compilefrontend::prepare()
 		patho+=".out";
 	}
 
-	
 	if (refback->isobcode())
 		return "-o "+ownterm.makecompatible(patho)+".o "+gflagtrans();
 	else
@@ -136,4 +135,7 @@ void compilefrontend::compile()
 	}
 }
 
-
+compilefrontend::~compilefrontend()
+{
+	refback=0;
+}

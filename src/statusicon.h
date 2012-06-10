@@ -32,14 +32,15 @@ class statusicon
 {
 public:
 	statusicon(gui *refbackt);
+	~statusicon();
 
 protected:
 	//Glib::RefPtr<gui> refback 
 	gui* refback;
+	//std::shared_ptr<gui> refback;
 
 private:
 	Glib::RefPtr<Gtk::StatusIcon> icon;
-	void hideshow();
 	std::vector<Gtk::TargetEntry> Targets;
 
 };

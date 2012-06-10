@@ -33,6 +33,7 @@ class compilefrontend
 {
 public:
 	compilefrontend(gui *refbackt);
+	~compilefrontend();
 	void compile();
 	Gtk::Widget *givevteterm();
 protected:

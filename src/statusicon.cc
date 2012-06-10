@@ -33,14 +33,13 @@ statusicon::statusicon(gui *refbackt)
 
 	Targets.push_back( Gtk::TargetEntry("STRING") );
 	Targets.push_back( Gtk::TargetEntry("text/plain") );
-	icon->signal_activate().connect( sigc::mem_fun(*this,&statusicon::hideshow) );
+	icon->signal_activate().connect( sigc::mem_fun(refback,&gui::hideshow) );
 
 }
 
-void statusicon::hideshow()
+
+
+statusicon::~statusicon()
 {
-	if (refback->isvisible()==true)
-		refback->hide();
-	else
-		refback->show();
+	refback=0;
 }

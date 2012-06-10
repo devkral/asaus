@@ -24,18 +24,13 @@
 #include "executecode.h"
 #include "statusicon.h"
 
-#include <mutex>
-#include <cstdlib>
+//#include <mutex>
+//#include <cstdlib>
 //#include <memory>
-
 #include <gtkmm.h>
-
 #include <string>
+#include <vector>
 
-
-//#include <gdkmm-3.0/gdkmm/event.h>
-
-//#include "config.h"
 
 
 
@@ -50,6 +45,7 @@ class gui
 {
 public:
 	gui(int argc, char *argv[]);
+	~gui();
 	
 	void settermspace(Gtk::Widget &term);
 	std::string getexecuteargs();
@@ -69,13 +65,18 @@ public:
 	void drag_data_get(const Glib::RefPtr<Gdk::DragContext>& context, int, int,
           const Gtk::SelectionData& selection_data, guint, guint time);
 	
-	int startspin();
+	void startspin();
 	void stopspin();
 
 	bool isvisible();
 	void show();
 	void hide();
+	void hideshow();
+	void hideshow2(Gtk::Allocation& allocation);
+	bool on_my_window_state_event(GdkEventWindowState* event);
 
+
+	
 	void exeact();
 	void compact();
 
@@ -93,42 +94,42 @@ private:
 	//variables
 	std::string executeargs, compileargs;
 
-	Gtk::Window* main_win=0;
+	Glib::RefPtr<Gtk::Window> main_win;
 	bool closebutton(GdkEventAny*);
-	Gtk::Alignment* terminal;
+	Glib::RefPtr<Gtk::Alignment> terminal;
+	//Gtk::Alignment* terminal;
 
 	//status
-	Gtk::Spinner* spinner1=0;
-	Gtk::Grid* movecont=0;
+	Glib::RefPtr<Gtk::Spinner> spinner1;
+	int spinuser;
 
+	//visiblestate
+	int visiblestate;
 	
-	Gtk::Alignment* actionchoose=0;
+	Glib::RefPtr<Gtk::Alignment> actionchoose;
 	//execute panel
-	Gtk::Grid* exeops=0;
+	Glib::RefPtr<Gtk::Grid> exeops;
 	//exe block
-	Gtk::Entry* exeargs=0;
+	Glib::RefPtr<Gtk::Entry> exeargs;
 
 	//compile panel
-	Gtk::Grid* compops=0;
+	Glib::RefPtr<Gtk::Grid> compops;
 	//comp block
-	Gtk::CheckButton* debugbutton=0;
-	Gtk::CheckButton* obbutton=0;
-	Gtk::Entry* opimizelevel=0;
-	Gtk::Entry* compargs=0;
+	Glib::RefPtr<Gtk::CheckButton> debugbutton;
+	Glib::RefPtr<Gtk::CheckButton> obbutton;
+	Glib::RefPtr<Gtk::Entry> optimizelevel;
+	Glib::RefPtr<Gtk::Entry> compargs;
 	
-	Gtk::RadioButton* compilechosebutton=0;
-	Gtk::RadioButton* compilechosebutton2=0;
+	Glib::RefPtr<Gtk::RadioButton> compilechosebutton;
+	Glib::RefPtr<Gtk::RadioButton> compilechosebutton2;
 
-	Gtk::Button* execute=0;
-	Gtk::Button* compilebutton=0;
+	Glib::RefPtr<Gtk::Button> execute;
+	Glib::RefPtr<Gtk::Button> compilebutton;
 
 	//filechoose
-	Gtk::Button* filechoosebutton=0;
-	Gtk::Entry* fileentry=0;
+	Glib::RefPtr<Gtk::Button> filechoosebutton;
+	Glib::RefPtr<Gtk::Entry> fileentry;
 	std::string lastfile;
-
-	//mutexe
-	std::timed_mutex blockspin;
 
 	//functions
 	void changeaction();

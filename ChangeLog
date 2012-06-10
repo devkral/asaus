@@ -5,3 +5,10 @@ Nov 12 2011
 -fix bug killing the sourcecode
 -clean the code
 -remove dependency on clang
+
+Jun 8 2012
+-complete rework
+
+Jun 10 2012
+-use smartpointer
+-make 

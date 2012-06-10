@@ -30,6 +30,7 @@ class executecode
 {
 public:
 	executecode(gui *refbackt);
+	~executecode();
 	void execute();
 	Gtk::Widget *givevteterm();
 protected:
