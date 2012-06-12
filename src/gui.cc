@@ -49,7 +49,7 @@ gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethr
 	white.set_rgba(1,1,1,1);
 	black=Gdk::RGBA();
 	black.set_rgba(0,0,0,1);
-	
+
 	Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create();
 	try
 	{
@@ -58,14 +58,17 @@ gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethr
 	catch(const Glib::FileError& ex)
 	{
 		std::cerr << "FileError: " << ex.what() << std::endl;
+		throw(ex);
 	}
 	catch(const Glib::MarkupError& ex)
 	{
 		std::cerr << "MarkupError: " << ex.what() << std::endl;
+		throw(ex);
 	}
 	catch(const Gtk::BuilderError& ex)
 	{
 		std::cerr << "BuilderError: " << ex.what() << std::endl;
+		throw(ex);
 	}
 
 	//now get root window
