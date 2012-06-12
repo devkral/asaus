@@ -59,6 +59,7 @@ public:
 	void paintitred();
 	//turn it back
 	void paintitwhite();
+	void unsetcolor();
 
 	int fileentrylength();
 
@@ -72,20 +73,19 @@ public:
 	void show();
 	void hide();
 	void hideshow();
-	void hideshow2(Gtk::Allocation& allocation);
 	bool on_my_window_state_event(GdkEventWindowState* event);
-
-
 	
 	void exeact();
 	void compact();
-
-	//gui unreference();
 	
 protected:
 
 private:
 	Gtk::Main kit;
+
+	Gdk::RGBA red;
+	Gdk::RGBA white;
+	Gdk::RGBA black;
 	
 	compilefrontend compilethread;
 	executecode executethread;
@@ -97,7 +97,6 @@ private:
 	Glib::RefPtr<Gtk::Window> main_win;
 	bool closebutton(GdkEventAny*);
 	Glib::RefPtr<Gtk::Alignment> terminal;
-	//Gtk::Alignment* terminal;
 
 	//status
 	Glib::RefPtr<Gtk::Spinner> spinner1;
@@ -138,8 +137,6 @@ private:
 	void exeacthelper();
 	
 	void fileact();
-
-	//void on_window_iconify(Gtk::Allocation& allocation);
 	
 	std::vector<Gtk::TargetEntry> Targets;
 

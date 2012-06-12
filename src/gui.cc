@@ -34,8 +34,14 @@ transform_to_rptr(const Glib::RefPtr< Glib::Object >& p)
 }
 
 gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethread(this),iconthread(this)
-{
-	visiblestate=0;
+{		
+	red=Gdk::RGBA();
+	red.set_rgba(1,0,0,1);
+	white=Gdk::RGBA();
+	white.set_rgba(1,1,1,1);
+	black=Gdk::RGBA();
+	black.set_rgba(0,0,0,1);
+	
 	Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create();
 	try
 	{
@@ -68,9 +74,6 @@ gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethr
 	main_win->signal_delete_event().connect(sigc::mem_fun(*this,&gui::closebutton));
 
 	//init hide completely
-	//main_win->
-	//main_win->signal_size_allocate().connect(sigc::mem_fun(*this,&gui::hideshow2));
-	//main_win->signal_unmap().connect(sigc::mem_fun(*this,&gui::hideshow2));
 	main_win->signal_window_state_event().connect (sigc::mem_fun(*this,&gui::on_my_window_state_event));
 	
 	//Spinner
@@ -88,7 +91,7 @@ gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethr
 	//elements of execute
 	exeops=transform_to_rptr<Gtk::Grid>(builder->get_object("exeops"));
 	exeargs=transform_to_rptr<Gtk::Entry>(builder->get_object("exeargs"));
-
+	
 	//elements of compile
 	compops=transform_to_rptr<Gtk::Grid>(builder->get_object("compops"));
 	
@@ -296,12 +299,20 @@ void gui::fileact()
 
 void gui::paintitred()
 {
-	fileentry->override_background_color(Gdk::RGBA("ff0000"),Gtk::STATE_FLAG_NORMAL);
+	//fileentry->override_background_color(red);
+	fileentry->override_color(red);
 }
 
 void gui::paintitwhite()
 {
-	fileentry->override_background_color (Gdk::RGBA("ffffff"),Gtk::STATE_FLAG_NORMAL);
+	//fileentry->override_background_color (black);
+	
+	
+}
+
+void gui::unsetcolor()
+{
+	fileentry->unset_color();
 }
 
 int gui::fileentrylength()
@@ -373,20 +384,6 @@ bool gui::on_my_window_state_event(GdkEventWindowState* event)
 		return false;
 }
 
-void gui::hideshow2(Gtk::Allocation& allocation)
-{
-	
-	/**if (visiblestate>=5 || visiblestate==0)
-	{
-		hideshow();
-		visiblestate=0;
-	}
-	visiblestate++;*/
-	std::cout << "test" ;//<< t->state;
-	//if (t->state==Gdk::GDK_VISIBILITY_FULLY_OBSCURED || t->state==Gdk::GDK_VISIBILITY_PARTIAL)
-	if (isvisible()==false)
-		hide();
-}
 
 void gui::hideshow()
 {

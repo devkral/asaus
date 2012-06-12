@@ -97,6 +97,7 @@ void compilefrontend::tacticmake(std::string loc)
 
 void compilefrontend::tacticautogen(std::string loc)
 {
+	refback->unsetcolor();
 	std::string summaryc="cd "+ownterm.makecompatible(loc)+";autogen "+refback->getcompileargs()+"\n";
 	ownterm.feedexe(summaryc);
 }
@@ -109,6 +110,7 @@ void compilefrontend::compile()
 		Glib::RefPtr<Gio::File> temp = Gio::File::create_for_path (refback->getfilepath());
 		if (temp->query_exists ())
 		{
+			refback->unsetcolor();
 			std::string testmakeautogen= temp->get_basename ();
 			Glib::RefPtr<Gio::File> parent=temp->get_parent();
 			if (testmakeautogen=="Makefile")

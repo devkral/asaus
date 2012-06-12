@@ -43,26 +43,39 @@ std::string executecode::prepexecute()
 	return patho;
 }
 
+void executecode::addargs(std::string input)
+{
+	std::string summaryc=ownterm.makecompatible(input)+" "+refback->getexecuteargs()+"\n";
+	// 2>&1
+	ownterm.feedexe(summaryc);
+}
+
+
 void executecode::execute()
 {
 	if (refback->fileentrylength()>0)
 	{
 		Glib::RefPtr<Gio::File> test1 = Gio::File::create_for_path (prepexecute());
 		if (test1->query_exists())
-			std::string summaryc=prepexecute();
+		{
+			refback->unsetcolor();
+			addargs(prepexecute());
+		}
 		else
 		{
 			Glib::RefPtr<Gio::File> test2 = Gio::File::create_for_path (refback->getfilepath());
 			if (test2->query_exists())
-				std::string summaryc=refback->getfilepath();
+			{
+				refback->unsetcolor();
+				addargs(refback->getfilepath());
+			}
 			else
 			{
+				refback->paintitred();
 				ownterm.feedtext("Application not found\n");
 			}
 		}
-		std::string summaryc=ownterm.makecompatible(prepexecute())+" "+refback->getexecuteargs()+"\n";
-		// 2>&1
-		ownterm.feedexe(summaryc);
+		
 	}
 	else
 	{

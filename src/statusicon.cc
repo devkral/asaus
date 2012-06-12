@@ -31,8 +31,8 @@ statusicon::statusicon(gui *refbackt)
 	icon=Gtk::StatusIcon::create("Asaus");
 	icon->set_from_file(ICON_FILE);
 
-	Targets.push_back( Gtk::TargetEntry("STRING") );
-	Targets.push_back( Gtk::TargetEntry("text/plain") );
+	//Targets.push_back( Gtk::TargetEntry("STRING") );
+	//Targets.push_back( Gtk::TargetEntry("text/plain") );
 	icon->signal_activate().connect( sigc::mem_fun(refback,&gui::hideshow) );
 
 }

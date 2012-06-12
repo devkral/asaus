@@ -38,6 +38,7 @@ protected:
 	
 private:
 	terminal ownterm;
+	void addargs(std::string input);
 	std::string prepexecute();
 };
 
