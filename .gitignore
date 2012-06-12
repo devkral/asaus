@@ -8,11 +8,8 @@
 
 /Debug
 
-# copied from github template
-# http://www.gnu.org/software/automake
-
-Makefile.in
-Makefile.am
+/libtool
+/stamp-h1
 
 # http://www.gnu.org/software/autoconf
 
