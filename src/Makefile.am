@@ -3,7 +3,7 @@
 ## Created by Anjuta
 
 
-uidir = $(pkgdatadir)/ui
+uidir =$(pkgdatadir)
 ui_DATA = asaus.ui \
 	asaus.png
 
@@ -32,6 +32,8 @@ asaus_SOURCES = \
 	terminal.h \
 	statusicon.cc \
 	statusicon.h
+
+asaus_CPPFLAGS = -DICON_FILE=$(uidir)"/asaus.png",-DUI_FILE=$(uidir)"/asaus.ui" 
 
 asaus_CXXFLAGS = -std=c++11 \
 	-std=gnu++11 

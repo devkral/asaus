@@ -18,7 +18,7 @@
  */
 
 //For testing use the local icon
-#define ICON_FILE "src/asaus.png"
+
 
 
 #include "statusicon.h"

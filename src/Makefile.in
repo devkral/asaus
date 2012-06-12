@@ -280,7 +280,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-uidir = $(pkgdatadir)/ui
+uidir = $(pkgdatadir)
 ui_DATA = asaus.ui \
 	asaus.png
 
@@ -307,6 +307,7 @@ asaus_SOURCES = \
 	statusicon.cc \
 	statusicon.h
 
+asaus_CPPFLAGS = -DICON_FILE=$(uidir)"/asaus.png",-DUI_FILE=$(uidir)"/asaus.ui" 
 asaus_CXXFLAGS = -std=c++11 \
 	-std=gnu++11 
 
@@ -432,88 +433,88 @@ distclean-compile:
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
 
 asaus-main.o: main.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-main.o -MD -MP -MF $(DEPDIR)/asaus-main.Tpo -c -o asaus-main.o `test -f 'main.cc' || echo '$(srcdir)/'`main.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-main.o -MD -MP -MF $(DEPDIR)/asaus-main.Tpo -c -o asaus-main.o `test -f 'main.cc' || echo '$(srcdir)/'`main.cc
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/asaus-main.Tpo $(DEPDIR)/asaus-main.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='main.cc' object='asaus-main.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-main.o `test -f 'main.cc' || echo '$(srcdir)/'`main.cc
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-main.o `test -f 'main.cc' || echo '$(srcdir)/'`main.cc
 
 asaus-main.obj: main.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-main.obj -MD -MP -MF $(DEPDIR)/asaus-main.Tpo -c -o asaus-main.obj `if test -f 'main.cc'; then $(CYGPATH_W) 'main.cc'; else $(CYGPATH_W) '$(srcdir)/main.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-main.obj -MD -MP -MF $(DEPDIR)/asaus-main.Tpo -c -o asaus-main.obj `if test -f 'main.cc'; then $(CYGPATH_W) 'main.cc'; else $(CYGPATH_W) '$(srcdir)/main.cc'; fi`
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/asaus-main.Tpo $(DEPDIR)/asaus-main.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='main.cc' object='asaus-main.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-main.obj `if test -f 'main.cc'; then $(CYGPATH_W) 'main.cc'; else $(CYGPATH_W) '$(srcdir)/main.cc'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-main.obj `if test -f 'main.cc'; then $(CYGPATH_W) 'main.cc'; else $(CYGPATH_W) '$(srcdir)/main.cc'; fi`
 
 asaus-gui.o: gui.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-gui.o -MD -MP -MF $(DEPDIR)/asaus-gui.Tpo -c -o asaus-gui.o `test -f 'gui.cc' || echo '$(srcdir)/'`gui.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-gui.o -MD -MP -MF $(DEPDIR)/asaus-gui.Tpo -c -o asaus-gui.o `test -f 'gui.cc' || echo '$(srcdir)/'`gui.cc
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/asaus-gui.Tpo $(DEPDIR)/asaus-gui.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='gui.cc' object='asaus-gui.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-gui.o `test -f 'gui.cc' || echo '$(srcdir)/'`gui.cc
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-gui.o `test -f 'gui.cc' || echo '$(srcdir)/'`gui.cc
 
 asaus-gui.obj: gui.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-gui.obj -MD -MP -MF $(DEPDIR)/asaus-gui.Tpo -c -o asaus-gui.obj `if test -f 'gui.cc'; then $(CYGPATH_W) 'gui.cc'; else $(CYGPATH_W) '$(srcdir)/gui.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-gui.obj -MD -MP -MF $(DEPDIR)/asaus-gui.Tpo -c -o asaus-gui.obj `if test -f 'gui.cc'; then $(CYGPATH_W) 'gui.cc'; else $(CYGPATH_W) '$(srcdir)/gui.cc'; fi`
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/asaus-gui.Tpo $(DEPDIR)/asaus-gui.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='gui.cc' object='asaus-gui.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-gui.obj `if test -f 'gui.cc'; then $(CYGPATH_W) 'gui.cc'; else $(CYGPATH_W) '$(srcdir)/gui.cc'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-gui.obj `if test -f 'gui.cc'; then $(CYGPATH_W) 'gui.cc'; else $(CYGPATH_W) '$(srcdir)/gui.cc'; fi`
 
 asaus-executecode.o: executecode.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-executecode.o -MD -MP -MF $(DEPDIR)/asaus-executecode.Tpo -c -o asaus-executecode.o `test -f 'executecode.cc' || echo '$(srcdir)/'`executecode.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-executecode.o -MD -MP -MF $(DEPDIR)/asaus-executecode.Tpo -c -o asaus-executecode.o `test -f 'executecode.cc' || echo '$(srcdir)/'`executecode.cc
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/asaus-executecode.Tpo $(DEPDIR)/asaus-executecode.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='executecode.cc' object='asaus-executecode.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-executecode.o `test -f 'executecode.cc' || echo '$(srcdir)/'`executecode.cc
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-executecode.o `test -f 'executecode.cc' || echo '$(srcdir)/'`executecode.cc
 
 asaus-executecode.obj: executecode.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-executecode.obj -MD -MP -MF $(DEPDIR)/asaus-executecode.Tpo -c -o asaus-executecode.obj `if test -f 'executecode.cc'; then $(CYGPATH_W) 'executecode.cc'; else $(CYGPATH_W) '$(srcdir)/executecode.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-executecode.obj -MD -MP -MF $(DEPDIR)/asaus-executecode.Tpo -c -o asaus-executecode.obj `if test -f 'executecode.cc'; then $(CYGPATH_W) 'executecode.cc'; else $(CYGPATH_W) '$(srcdir)/executecode.cc'; fi`
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/asaus-executecode.Tpo $(DEPDIR)/asaus-executecode.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='executecode.cc' object='asaus-executecode.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-executecode.obj `if test -f 'executecode.cc'; then $(CYGPATH_W) 'executecode.cc'; else $(CYGPATH_W) '$(srcdir)/executecode.cc'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-executecode.obj `if test -f 'executecode.cc'; then $(CYGPATH_W) 'executecode.cc'; else $(CYGPATH_W) '$(srcdir)/executecode.cc'; fi`
 
 asaus-compilefrontend.o: compilefrontend.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-compilefrontend.o -MD -MP -MF $(DEPDIR)/asaus-compilefrontend.Tpo -c -o asaus-compilefrontend.o `test -f 'compilefrontend.cc' || echo '$(srcdir)/'`compilefrontend.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-compilefrontend.o -MD -MP -MF $(DEPDIR)/asaus-compilefrontend.Tpo -c -o asaus-compilefrontend.o `test -f 'compilefrontend.cc' || echo '$(srcdir)/'`compilefrontend.cc
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/asaus-compilefrontend.Tpo $(DEPDIR)/asaus-compilefrontend.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='compilefrontend.cc' object='asaus-compilefrontend.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-compilefrontend.o `test -f 'compilefrontend.cc' || echo '$(srcdir)/'`compilefrontend.cc
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-compilefrontend.o `test -f 'compilefrontend.cc' || echo '$(srcdir)/'`compilefrontend.cc
 
 asaus-compilefrontend.obj: compilefrontend.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-compilefrontend.obj -MD -MP -MF $(DEPDIR)/asaus-compilefrontend.Tpo -c -o asaus-compilefrontend.obj `if test -f 'compilefrontend.cc'; then $(CYGPATH_W) 'compilefrontend.cc'; else $(CYGPATH_W) '$(srcdir)/compilefrontend.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-compilefrontend.obj -MD -MP -MF $(DEPDIR)/asaus-compilefrontend.Tpo -c -o asaus-compilefrontend.obj `if test -f 'compilefrontend.cc'; then $(CYGPATH_W) 'compilefrontend.cc'; else $(CYGPATH_W) '$(srcdir)/compilefrontend.cc'; fi`
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/asaus-compilefrontend.Tpo $(DEPDIR)/asaus-compilefrontend.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='compilefrontend.cc' object='asaus-compilefrontend.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-compilefrontend.obj `if test -f 'compilefrontend.cc'; then $(CYGPATH_W) 'compilefrontend.cc'; else $(CYGPATH_W) '$(srcdir)/compilefrontend.cc'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-compilefrontend.obj `if test -f 'compilefrontend.cc'; then $(CYGPATH_W) 'compilefrontend.cc'; else $(CYGPATH_W) '$(srcdir)/compilefrontend.cc'; fi`
 
 asaus-terminal.o: terminal.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-terminal.o -MD -MP -MF $(DEPDIR)/asaus-terminal.Tpo -c -o asaus-terminal.o `test -f 'terminal.cc' || echo '$(srcdir)/'`terminal.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-terminal.o -MD -MP -MF $(DEPDIR)/asaus-terminal.Tpo -c -o asaus-terminal.o `test -f 'terminal.cc' || echo '$(srcdir)/'`terminal.cc
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/asaus-terminal.Tpo $(DEPDIR)/asaus-terminal.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='terminal.cc' object='asaus-terminal.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-terminal.o `test -f 'terminal.cc' || echo '$(srcdir)/'`terminal.cc
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-terminal.o `test -f 'terminal.cc' || echo '$(srcdir)/'`terminal.cc
 
 asaus-terminal.obj: terminal.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-terminal.obj -MD -MP -MF $(DEPDIR)/asaus-terminal.Tpo -c -o asaus-terminal.obj `if test -f 'terminal.cc'; then $(CYGPATH_W) 'terminal.cc'; else $(CYGPATH_W) '$(srcdir)/terminal.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-terminal.obj -MD -MP -MF $(DEPDIR)/asaus-terminal.Tpo -c -o asaus-terminal.obj `if test -f 'terminal.cc'; then $(CYGPATH_W) 'terminal.cc'; else $(CYGPATH_W) '$(srcdir)/terminal.cc'; fi`
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/asaus-terminal.Tpo $(DEPDIR)/asaus-terminal.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='terminal.cc' object='asaus-terminal.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-terminal.obj `if test -f 'terminal.cc'; then $(CYGPATH_W) 'terminal.cc'; else $(CYGPATH_W) '$(srcdir)/terminal.cc'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-terminal.obj `if test -f 'terminal.cc'; then $(CYGPATH_W) 'terminal.cc'; else $(CYGPATH_W) '$(srcdir)/terminal.cc'; fi`
 
 asaus-statusicon.o: statusicon.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-statusicon.o -MD -MP -MF $(DEPDIR)/asaus-statusicon.Tpo -c -o asaus-statusicon.o `test -f 'statusicon.cc' || echo '$(srcdir)/'`statusicon.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-statusicon.o -MD -MP -MF $(DEPDIR)/asaus-statusicon.Tpo -c -o asaus-statusicon.o `test -f 'statusicon.cc' || echo '$(srcdir)/'`statusicon.cc
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/asaus-statusicon.Tpo $(DEPDIR)/asaus-statusicon.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='statusicon.cc' object='asaus-statusicon.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-statusicon.o `test -f 'statusicon.cc' || echo '$(srcdir)/'`statusicon.cc
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-statusicon.o `test -f 'statusicon.cc' || echo '$(srcdir)/'`statusicon.cc
 
 asaus-statusicon.obj: statusicon.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-statusicon.obj -MD -MP -MF $(DEPDIR)/asaus-statusicon.Tpo -c -o asaus-statusicon.obj `if test -f 'statusicon.cc'; then $(CYGPATH_W) 'statusicon.cc'; else $(CYGPATH_W) '$(srcdir)/statusicon.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-statusicon.obj -MD -MP -MF $(DEPDIR)/asaus-statusicon.Tpo -c -o asaus-statusicon.obj `if test -f 'statusicon.cc'; then $(CYGPATH_W) 'statusicon.cc'; else $(CYGPATH_W) '$(srcdir)/statusicon.cc'; fi`
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/asaus-statusicon.Tpo $(DEPDIR)/asaus-statusicon.Po
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='statusicon.cc' object='asaus-statusicon.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-statusicon.obj `if test -f 'statusicon.cc'; then $(CYGPATH_W) 'statusicon.cc'; else $(CYGPATH_W) '$(srcdir)/statusicon.cc'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(asaus_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-statusicon.obj `if test -f 'statusicon.cc'; then $(CYGPATH_W) 'statusicon.cc'; else $(CYGPATH_W) '$(srcdir)/statusicon.cc'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
