@@ -17,9 +17,6 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define ICON_FILE "src/asaus.png"
-//#define ICON_FILE $(datadir)+"asaus.png"
-
 #include <vector>
 #include <string>
 #include <gtkmm.h>

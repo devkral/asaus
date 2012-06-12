@@ -32,12 +32,6 @@
 #include <vector>
 
 
-
-
-/* For testing propose use the local (not installed) ui file */
-/* #define UI_FILE PACKAGE_DATA_DIR"/ui/asaus.ui" */
-#define UI_FILE "src/asaus.ui"
-
 #ifndef _GUI_H_
 #define _GUI_H_
 

@@ -18,7 +18,11 @@
  */
 
 //For testing use the local icon
-
+#ifdef test_an
+#define ICON_FILE "src/asaus.png"
+#else
+#define ICON_FILE PACKAGE_DATA_DIR"/ui/asaus.png"
+#endif
 
 
 #include "statusicon.h"

@@ -17,6 +17,14 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* For testing propose use the local (not installed) ui file */
+/* #define UI_FILE PACKAGE_DATA_DIR"/ui/asaus.ui" */
+#ifdef test_an
+#define UI_FILE "src/asaus.ui"
+#else
+#define UI_FILE PACKAGE_DATA_DIR"/ui/asaus.ui"
+#endif
+
 #include "gui.h"
 
 #include <iostream>
