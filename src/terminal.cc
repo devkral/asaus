@@ -29,6 +29,13 @@
 
 terminal::terminal()
 {
+#if GCC_VERSION < 40700
+	vteterm=0;
+	vtetermcc=0;
+	//neccessary for vte_terminal_fork_command_full
+	err=0;
+#endif
+
 	vteterm=vte_terminal_new();
 	vtetermcc=Glib::wrap(vteterm);
 
