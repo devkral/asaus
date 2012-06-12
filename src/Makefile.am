@@ -33,8 +33,8 @@ asaus_SOURCES = \
 	statusicon.cc \
 	statusicon.h
 
-asaus_CXXFLAGS = -std=c++11 \
-	-std=gnu++11 
+asaus_CXXFLAGS = -std=c++0x \
+	-std=gnu++0x 
 
 asaus_LDFLAGS = 
 
