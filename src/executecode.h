@@ -34,7 +34,12 @@ public:
 	void execute();
 	Gtk::Widget *givevteterm();
 protected:
+//use macro from terminal.h
+#if GCC_VERSION < 40700
+	gui* refback;
+#else
 	gui* refback=0;
+#endif
 	
 private:
 	terminal ownterm;
