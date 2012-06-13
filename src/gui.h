@@ -24,6 +24,8 @@
 #include "executecode.h"
 #include "statusicon.h"
 
+#include "closingdialog.h"
+
 //#include <mutex>
 //#include <cstdlib>
 //#include <memory>
@@ -67,8 +69,9 @@ public:
 	void show();
 	void hide();
 	void hideshow();
-	bool on_my_window_state_event(GdkEventWindowState* event);
-	
+	void fullscreen();
+
+
 	void exeact();
 	void compact();
 	
@@ -76,15 +79,18 @@ protected:
 
 private:
 	Gtk::Main kit;
+	Glib::RefPtr<Gtk::Builder> builder;
+	closingdialog closedia;
 
 	Gdk::RGBA red;
 	Gdk::RGBA white;
 	Gdk::RGBA black;
-	
+
 	compilefrontend compilethread;
 	executecode executethread;
 	statusicon iconthread;
 
+	bool on_my_window_state_event(GdkEventWindowState* event);
 	//variables
 	std::string executeargs, compileargs;
 

@@ -67,7 +67,8 @@ am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(uidir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_asaus_OBJECTS = asaus-main.$(OBJEXT) asaus-gui.$(OBJEXT) \
 	asaus-executecode.$(OBJEXT) asaus-compilefrontend.$(OBJEXT) \
-	asaus-terminal.$(OBJEXT) asaus-statusicon.$(OBJEXT)
+	asaus-terminal.$(OBJEXT) asaus-statusicon.$(OBJEXT) \
+	asaus-closingdialog.$(OBJEXT)
 asaus_OBJECTS = $(am_asaus_OBJECTS)
 am__DEPENDENCIES_1 =
 asaus_DEPENDENCIES = $(am__DEPENDENCIES_1)
@@ -281,8 +282,13 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 uidir = $(pkgdatadir)/ui
-ui_DATA = asaus.ui \
-	asaus.png
+ui_DATA = ui/asaus.ui \
+	ui/asaus.png \
+	ui/downleft.png \
+	ui/downright.png \
+	ui/topleft.png \
+	ui/topright.png \
+	ui/closedialog.ui
 
 AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(localedir)"\" \
@@ -305,7 +311,9 @@ asaus_SOURCES = \
 	terminal.cc \
 	terminal.h \
 	statusicon.cc \
-	statusicon.h
+	statusicon.h \
+	closingdialog.cc \
+	closingdialog.h
 
 asaus_CXXFLAGS = -std=c++0x \
 	-std=gnu++0x 
@@ -403,6 +411,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/asaus-closingdialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/asaus-compilefrontend.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/asaus-executecode.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/asaus-gui.Po@am__quote@
@@ -514,6 +523,20 @@ asaus-statusicon.obj: statusicon.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='statusicon.cc' object='asaus-statusicon.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-statusicon.obj `if test -f 'statusicon.cc'; then $(CYGPATH_W) 'statusicon.cc'; else $(CYGPATH_W) '$(srcdir)/statusicon.cc'; fi`
+
+asaus-closingdialog.o: closingdialog.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-closingdialog.o -MD -MP -MF $(DEPDIR)/asaus-closingdialog.Tpo -c -o asaus-closingdialog.o `test -f 'closingdialog.cc' || echo '$(srcdir)/'`closingdialog.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/asaus-closingdialog.Tpo $(DEPDIR)/asaus-closingdialog.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='closingdialog.cc' object='asaus-closingdialog.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-closingdialog.o `test -f 'closingdialog.cc' || echo '$(srcdir)/'`closingdialog.cc
+
+asaus-closingdialog.obj: closingdialog.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -MT asaus-closingdialog.obj -MD -MP -MF $(DEPDIR)/asaus-closingdialog.Tpo -c -o asaus-closingdialog.obj `if test -f 'closingdialog.cc'; then $(CYGPATH_W) 'closingdialog.cc'; else $(CYGPATH_W) '$(srcdir)/closingdialog.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/asaus-closingdialog.Tpo $(DEPDIR)/asaus-closingdialog.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='closingdialog.cc' object='asaus-closingdialog.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(asaus_CXXFLAGS) $(CXXFLAGS) -c -o asaus-closingdialog.obj `if test -f 'closingdialog.cc'; then $(CYGPATH_W) 'closingdialog.cc'; else $(CYGPATH_W) '$(srcdir)/closingdialog.cc'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

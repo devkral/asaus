@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkWindow" id="closedialog">
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkGrid" id="grid2">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkButton" id="back">
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="use_action_appearance">False</property>
+            <child>
+              <object class="GtkImage" id="image1">
+                <property name="width_request">96</property>
+                <property name="height_request">96</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="stock">gtk-undo</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="maximize">
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="use_action_appearance">False</property>
+            <child>
+              <object class="GtkImage" id="image4">
+                <property name="width_request">96</property>
+                <property name="height_request">96</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="stock">gtk-fullscreen</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="minimize">
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="use_action_appearance">False</property>
+            <child>
+              <object class="GtkImage" id="image3">
+                <property name="width_request">96</property>
+                <property name="height_request">96</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="stock">gtk-goto-bottom</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">2</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="close">
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="use_action_appearance">False</property>
+            <child>
+              <object class="GtkImage" id="image2">
+                <property name="width_request">96</property>
+                <property name="height_request">96</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="stock">gtk-quit</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">2</property>
+            <property name="top_attach">1</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="topleft">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="pixbuf">topleft.png</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="topright">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="pixbuf">topright.png</property>
+          </object>
+          <packing>
+            <property name="left_attach">2</property>
+            <property name="top_attach">0</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="midpoint">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="stock">gtk-missing-image</property>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">1</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="downleft">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="pixbuf">downleft.png</property>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">2</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkImage" id="downright">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="pixbuf">downright.png</property>
+          </object>
+          <packing>
+            <property name="left_attach">2</property>
+            <property name="top_attach">2</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

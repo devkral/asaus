@@ -20,12 +20,13 @@
 /* For testing propose use the local (not installed) ui file */
 /* #define UI_FILE PACKAGE_DATA_DIR"/ui/asaus.ui" */
 #ifdef test_an
-#define UI_FILE "src/asaus.ui"
-#else
-#define UI_FILE PACKAGE_DATA_DIR"/ui/asaus.ui"
+#undef PACKAGE_DATA_DIR
+#define PACKAGE_DATA_DIR "src"
 #endif
 
+
 #include "gui.h"
+
 
 #include <iostream>
 
@@ -40,6 +41,13 @@ transform_to_rptr(const Glib::RefPtr< Glib::Object >& p)
 {
 	return Glib::RefPtr<T_CppObject>::cast_dynamic(p);
 }
+/**
+void closedialog(Gtk::Window)
+{
+}*/
+	
+
+
 
 gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethread(this),iconthread(this)
 {		
@@ -50,10 +58,10 @@ gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethr
 	black=Gdk::RGBA();
 	black.set_rgba(0,0,0,1);
 
-	Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create();
+	builder = Gtk::Builder::create();
 	try
 	{
-		builder->add_from_file(UI_FILE);
+		builder->add_from_file(PACKAGE_DATA_DIR"/ui/asaus.ui");
 	}
 	catch(const Glib::FileError& ex)
 	{
@@ -81,9 +89,11 @@ gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethr
 	main_win->drag_dest_set(Targets);
 	main_win->signal_drag_data_received().connect(sigc::mem_fun(*this, &gui::drag_data_get));
 
+	
 	//init closebutton
 	main_win->signal_delete_event().connect(sigc::mem_fun(*this,&gui::closebutton));
 
+	
 	//init hide completely
 	main_win->signal_window_state_event().connect (sigc::mem_fun(*this,&gui::on_my_window_state_event));
 	
@@ -141,6 +151,7 @@ gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethr
 	spinner1->hide();
 
 	settermspace(*compilethread.givevteterm());
+	closedia=closingdialog(main_win.operator->(), &kit);
 	kit.run();
 }
 
@@ -353,8 +364,30 @@ void gui::hide()
 	main_win->hide();
 }
 
+void gui::fullscreen()
+{
+	main_win->maximize();
+}
+
+
+
 bool gui::closebutton(GdkEventAny*)
 {
+
+	/**Glib::RefPtr<Gtk::Image> topright=transform_to_rptr<Gtk::Image>(builder->get_object("topright"));
+	topright->set(PACKAGE_DATA_DIR"/ui/topright.png");
+	Glib::RefPtr<Gtk::Image> downright=transform_to_rptr<Gtk::Image>(builder->get_object("downright"));
+	downright->set(PACKAGE_DATA_DIR"/ui/downright.png");
+	Glib::RefPtr<Gtk::Image> downleft=transform_to_rptr<Gtk::Image>(builder->get_object("downleft"));
+	downleft->set(PACKAGE_DATA_DIR"/ui/downleft.png");
+	Glib::RefPtr<Gtk::Image> topleft=transform_to_rptr<Gtk::Image>(builder->get_object("topleft"));
+	topright->set(PACKAGE_DATA_DIR"/ui/topleft.png");
+	*/
+	;
+	closedia.runit();
+	return true;
+/**
+
 	Gtk::Dialog closedialog("Close program completely?",false);
 	closedialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
 	closedialog.add_button(Gtk::Stock::CLOSE, Gtk::RESPONSE_CLOSE );
@@ -363,7 +396,7 @@ bool gui::closebutton(GdkEventAny*)
 	//closedialog.set_transient_for (*main_win);
 	closedialog.set_attached_to (*main_win.operator->());
 	closedialog.set_skip_taskbar_hint(true);
-	main_win->set_opacity (0.8);
+	
 	
 	switch(closedialog.run())
 	{
@@ -381,7 +414,7 @@ bool gui::closebutton(GdkEventAny*)
 		default:
 			main_win->set_opacity (1);
 			return true;
-	}
+	}*/
 }
 
 bool gui::on_my_window_state_event(GdkEventWindowState* event)

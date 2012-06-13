@@ -4,8 +4,13 @@
 
 
 uidir =$(pkgdatadir)/ui
-ui_DATA = asaus.ui \
-	asaus.png
+ui_DATA = ui/asaus.ui \
+	ui/asaus.png \
+	ui/downleft.png \
+	ui/downright.png \
+	ui/topleft.png \
+	ui/topright.png \
+	ui/closedialog.ui
 
 
 AM_CPPFLAGS = \
@@ -31,7 +36,9 @@ asaus_SOURCES = \
 	terminal.cc \
 	terminal.h \
 	statusicon.cc \
-	statusicon.h
+	statusicon.h \
+	closingdialog.cc \
+	closingdialog.h
 
 asaus_CXXFLAGS = -std=c++0x \
 	-std=gnu++0x 

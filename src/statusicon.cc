@@ -19,9 +19,8 @@
 
 //For testing use the local icon
 #ifdef test_an
-#define ICON_FILE "src/asaus.png"
-#else
-#define ICON_FILE PACKAGE_DATA_DIR"/ui/asaus.png"
+#undef PACKAGE_DATA_DIR
+#define PACKAGE_DATA_DIR "src"
 #endif
 
 
@@ -33,7 +32,7 @@ statusicon::statusicon(gui *refbackt)
 {
 	refback=refbackt;
 	icon=Gtk::StatusIcon::create("Asaus");
-	icon->set_from_file(ICON_FILE);
+	icon->set_from_file(PACKAGE_DATA_DIR"/ui/asaus.png");
 
 	//Targets.push_back( Gtk::TargetEntry("STRING") );
 	//Targets.push_back( Gtk::TargetEntry("text/plain") );

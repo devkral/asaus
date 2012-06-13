@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * asaus
- * Copyright (C) alex 2012 <devkral@web.de>
+ * Copyright (C) alex 2012 <alex@archal>
  * 
  * asaus is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -17,43 +17,35 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-#include "terminal.h"
-
-#include <string>
 #include <gtkmm.h>
 
-class gui;
+#ifndef _CLOSINGDIALOG_H_
+#define _CLOSINGDIALOG_H_
 
-#ifndef _COMPILE_H_
-#define _COMPILE_H_
-
-
-class compilefrontend
+class closingdialog
 {
 public:
-	compilefrontend(gui *refbackt);
-	~compilefrontend();
-	void compile();
-	Gtk::Widget *givevteterm();
-protected:
-#if GCC_VERSION < 40700
-	gui* refback;
-#else
-	gui* refback=0;
-#endif
-
-private:
-	terminal ownterm;
-
-
-	void tacticgcc();
-	void tacticmake(std::string loc);
-	void tacticautogen(std::string loc);
+	closingdialog(Gtk::Window *windt, Gtk::Main *runt);
+	closingdialog();
+	~closingdialog();
 	
+	void runit();
+protected:
+	void close_prog();
+	void go_back();
+	void fullscreen();
+	void maximize();
+	void become_normal();
+	void iconify();
+
+	
+private:
+	Gtk::Window *wind;
+	Gtk::Main *run;
+
+	Gtk::Main myrun;
+	Gtk::Window *close_win;
 		
-	std::string prepare();
-	std::string gflagtrans();
 };
 
-#endif // _COMPILE_H_
+#endif // _CLOSINGDIALOG_H_

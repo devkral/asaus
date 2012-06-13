@@ -34,7 +34,11 @@ public:
 
 protected:
 	//Glib::RefPtr<gui> refback 
+#if GCC_VERSION < 40700
 	gui* refback;
+#else
+	gui* refback=0;
+#endif
 	//std::shared_ptr<gui> refback;
 
 private:
