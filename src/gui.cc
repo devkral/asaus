@@ -151,7 +151,7 @@ gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethr
 	spinner1->hide();
 
 	settermspace(*compilethread.givevteterm());
-	closedia=closingdialog(main_win.operator->(), &kit);
+	closedia.init(main_win.operator->(), &kit);
 	kit.run();
 }
 
@@ -384,7 +384,7 @@ bool gui::closebutton(GdkEventAny*)
 	topright->set(PACKAGE_DATA_DIR"/ui/topleft.png");
 	*/
 	;
-	closedia.runit();
+	closedia.run();
 	return true;
 /**
 

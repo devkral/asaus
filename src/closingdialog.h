@@ -25,27 +25,38 @@
 class closingdialog
 {
 public:
-	closingdialog(Gtk::Window *windt, Gtk::Main *runt);
+	closingdialog(bool fullscreent);
 	closingdialog();
 	~closingdialog();
 	
-	void runit();
+	void init(Gtk::Window *windt, Gtk::Main *runt);
+	void default_fullscreen(bool shall_fullscreent);
+	void run();
 protected:
 	void close_prog();
 	void go_back();
 	void fullscreen();
 	void maximize();
-	void become_normal();
+	void normalize();
 	void iconify();
 
 	
 private:
 	Gtk::Window *wind;
-	Gtk::Main *run;
+	Gtk::Main *run_main;
+	//GdkEventWindowState* event;
+	bool get_window_state_event(GdkEventWindowState* eventt);
+	bool stopiconify(GdkEventWindowState* eventt);
 
-	Gtk::Main myrun;
-	Gtk::Window *close_win;
-		
+	void endrunit();
+	bool is_extreme;
+	Glib::RefPtr<Gtk::Window> close_win;
+
+	Glib::RefPtr<Gtk::Image> extreme;
+	Glib::RefPtr<Gtk::Button> extremeb;
+	bool shall_fullscreen;
+	void toggleextreme(bool shall_extreme);
+	
 };
 
 #endif // _CLOSINGDIALOG_H_

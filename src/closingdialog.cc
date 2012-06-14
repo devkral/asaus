@@ -34,11 +34,38 @@ transform_to_rptr(const Glib::RefPtr< Glib::Object >& p)
 	return Glib::RefPtr<T_CppObject>::cast_dynamic(p);
 }
 
-closingdialog::closingdialog (Gtk::Window *windt, Gtk::Main *runt) // : myrun()
+
+closingdialog::closingdialog ()
+{
+	run_main=0;
+	wind=0;
+	shall_fullscreen=false;
+};
+
+closingdialog::closingdialog (bool fullscreent)
+{
+	run_main=0;
+	wind=0;
+	shall_fullscreen=fullscreent;
+};
+/**
+namespace Gtk::Window
+{
+	Gdk::WindowState get_wi_state(){
+	return Gdk::Window::get_state();
+	}
+
+}*/
+
+
+void closingdialog::init (Gtk::Window *windt, Gtk::Main *runt)
 {
 	wind=windt;
-	run=runt;
+	run_main=runt;
+	is_extreme=false;
+	wind->signal_window_state_event().connect (sigc::mem_fun(*this,&closingdialog::get_window_state_event));
 
+	
 	Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create();
 	try
 	{
@@ -60,80 +87,150 @@ closingdialog::closingdialog (Gtk::Window *windt, Gtk::Main *runt) // : myrun()
 		throw(ex);
 	}
 	
-	Glib::RefPtr<Gtk::Window> close_win=transform_to_rptr<Gtk::Window>(builder->get_object("closedialog"));
+	close_win=transform_to_rptr<Gtk::Window>(builder->get_object("closedialog"));
+	close_win->set_deletable (false);
+	close_win->set_skip_pager_hint (true);
+	close_win->hide();
+	close_win->signal_window_state_event().connect (sigc::mem_fun(*this,&closingdialog::stopiconify));
 
 	//close_win
-	Glib::RefPtr<Gtk::Button> maximize=transform_to_rptr<Gtk::Button>(builder->get_object("maximize"));
-	maximize->signal_clicked ().connect(sigc::mem_fun(*this,&closingdialog::maximize));
+	
 	Glib::RefPtr<Gtk::Button> minimize=transform_to_rptr<Gtk::Button>(builder->get_object("minimize"));
 	minimize->signal_clicked ().connect(sigc::mem_fun(*this,&closingdialog::iconify));
 	Glib::RefPtr<Gtk::Button> back=transform_to_rptr<Gtk::Button>(builder->get_object("back"));
 	back->signal_clicked ().connect(sigc::mem_fun(*this,&closingdialog::go_back));
 	Glib::RefPtr<Gtk::Button> close=transform_to_rptr<Gtk::Button>(builder->get_object("close"));
 	close->signal_clicked ().connect(sigc::mem_fun(*this,&closingdialog::close_prog));
+
+	extreme=transform_to_rptr<Gtk::Image>(builder->get_object("extreme"));
+	extremeb=transform_to_rptr<Gtk::Button>(builder->get_object("extremeb"));
+	toggleextreme(true);
 	
 }
-closingdialog::closingdialog ()
-{
-	run=0;
-	wind=0;
-};
 
-void closingdialog::runit()
+void closingdialog::default_fullscreen(bool shall_fullscreent)
 {
-	if (run!=0)
+	shall_fullscreen=shall_fullscreent;
+}
+
+void closingdialog::toggleextreme(bool shall_extreme=true)
+{
+	if(shall_extreme)
 	{
-		//close_win->set_transient_for (*wind);
+		
+		if (shall_fullscreen==false)
+		{
+			extreme->set(Gtk::StockID("gtk-fullscreen"),Gtk::IconSize (96));
+			extremeb->signal_clicked ().connect(sigc::mem_fun(*this,&closingdialog::maximize));
+		}
+		else
+		{
+			extreme->set(Gtk::StockID("gtk-fullscreen"),Gtk::IconSize (96));
+			extremeb->signal_clicked ().connect(sigc::mem_fun(*this,&closingdialog::fullscreen));
+		}
+	}
+	else
+	{
+		if (shall_fullscreen==false)
+			extreme->set(Gtk::StockID("gtk-zoom-100"),Gtk::IconSize (96));
+		else
+			extreme->set(Gtk::StockID("gtk-leave-fullscreen"),Gtk::IconSize (96));
+		extremeb->signal_clicked ().connect(sigc::mem_fun(*this,&closingdialog::normalize));
+	}
+}
+
+
+bool closingdialog::get_window_state_event(GdkEventWindowState* eventt)
+{
+		if (eventt->new_window_state==GDK_WINDOW_STATE_MAXIMIZED || eventt->new_window_state==GDK_WINDOW_STATE_FULLSCREEN)
+		{
+			is_extreme=true;
+		}
+	return false;
+}
+
+bool closingdialog::stopiconify(GdkEventWindowState* eventt)
+{
+	eventt;
+	if (eventt->new_window_state==GDK_WINDOW_STATE_ICONIFIED)
+	{	
+		close_win->deiconify();
+		return false;
+	}
+	else
+		return false;
+}
+
+void closingdialog::endrunit()
+{
+	close_win->unset_transient_for();
+	wind->set_opacity (1);
+	close_win->hide();
+}
+
+
+void closingdialog::run()
+{
+	if (run_main!=0 && wind!=0)
+	{
+
+		//if (Gdk::Window(*wind).get_state() ==(Gdk::WINDOW_STATE_MAXIMIZED ))
+		if (is_extreme)
+		{
+			toggleextreme(false);
+		}
+		else
+		{
+			toggleextreme(true);
+		}
+		
+		
+		close_win->set_transient_for (*wind);
 		wind->set_opacity (0.8);
-		//close_win->show();
-		//myrun.run();
+		close_win->show();
 	}
 }
 
 void closingdialog::close_prog()
 {
-	//myrun.quit();
-	run->quit();
+	run_main->quit();
 }
 
 void closingdialog::fullscreen()
 {
-	//myrun.quit();
-	//if wind.
-	//if wind.getproperty
-	wind->set_opacity (1);
+	endrunit();
 	wind->fullscreen();
+	is_extreme=true;
 }
 
 void closingdialog::maximize()
 {
-	//myrun.quit();
-	wind->set_opacity (1);
+	endrunit();
 	wind->maximize();
+	is_extreme=true;
 }
 
 void closingdialog::iconify()
 {
-	//myrun.quit();
-	wind->set_opacity (1);
+	endrunit();
 	wind->iconify();
 }
 
-void closingdialog::become_normal()
+void closingdialog::normalize()
 {
-	//myrun.quit();
-	wind->set_opacity (1);
+	endrunit();
 	wind->unmaximize();
 	wind->unfullscreen();
+	is_extreme=false;
+	
 }
 
 void closingdialog::go_back()
 {
-	//myrun.quit();
-	wind->set_opacity (1);
-	//close_win->hide();
+	endrunit();
 }
 closingdialog::~closingdialog()
 {
 	wind=0;
+	run_main=0;
 }
