@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=asaus
+Comment=Asaus Compile Frontend
+Exec=asaus
+Icon=/usr/share/asaus/ui/asaus.png
+Categories=Programming;

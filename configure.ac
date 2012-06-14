@@ -29,5 +29,6 @@ vte-2.90[ ])
 AC_OUTPUT([
 Makefile
 src/Makefile
+src/applications/Makefile
 
 ])

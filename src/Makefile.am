@@ -5,12 +5,12 @@
 
 uidir =$(pkgdatadir)/ui
 ui_DATA = ui/asaus.ui \
-	ui/asaus.png \
 	ui/downleft.png \
 	ui/downright.png \
 	ui/topleft.png \
 	ui/topright.png \
-	ui/closedialog.ui
+	ui/closedialog.ui \
+	ui/asaus.png
 
 
 AM_CPPFLAGS = \
@@ -55,3 +55,6 @@ uninstall-local:
 	-rm -r $(uidir)
 	-rm -r $(pkgdatadir)
 
+
+SUBDIRS = \
+	applications

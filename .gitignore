@@ -1,3 +1,5 @@
+/src/asaus
+
 *.o
 *~
 # Ignore all dotfiles...
@@ -6,6 +8,7 @@
 !.gitignore
 !/.git
 
+*/Makefile
 /Debug
 
 /libtool

@@ -3,7 +3,7 @@
 
 SUBDIRS = src 
 
-asausdocdir = ${prefix}/doc/asaus
+asausdocdir = ${datarootdir}/doc/asaus
 asausdoc_DATA = \
 	README\
 	COPYING\
