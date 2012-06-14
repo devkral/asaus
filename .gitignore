@@ -6,9 +6,11 @@
 .*
 # except for .gitignore
 !.gitignore
-!/.git
 
-*/Makefile
+Makefile
+!Makefile.am
+!Makefile.in
+
 /Debug
 
 /libtool
