@@ -43,13 +43,11 @@ protected:
 	
 private:
 	Gtk::Window *wind;
+	Glib::RefPtr<Gdk::Window> wind_gdk;
 	Gtk::Main *run_main;
-	//GdkEventWindowState* event;
-	bool get_window_state_event(GdkEventWindowState* eventt);
 	bool stopiconify(GdkEventWindowState* eventt);
 
 	void endrunit();
-	bool is_extreme;
 	Glib::RefPtr<Gtk::Window> close_win;
 
 	Glib::RefPtr<Gtk::Image> extreme;

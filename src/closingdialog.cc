@@ -25,6 +25,7 @@
 
 #include "closingdialog.h"
 
+
 #include <gtkmm.h> // closingdialog.h
 #include <iostream> 
 
@@ -48,23 +49,13 @@ closingdialog::closingdialog (bool fullscreent)
 	wind=0;
 	shall_fullscreen=fullscreent;
 };
-/**
-namespace Gtk::Window
-{
-	Gdk::WindowState get_wi_state(){
-	return Gdk::Window::get_state();
-	}
-
-}*/
 
 
 void closingdialog::init (Gtk::Window *windt, Gtk::Main *runt)
 {
 	wind=windt;
+	wind_gdk=wind->get_window();
 	run_main=runt;
-	is_extreme=false;
-	wind->signal_window_state_event().connect (sigc::mem_fun(*this,&closingdialog::get_window_state_event));
-
 	
 	Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create();
 	try
@@ -88,9 +79,10 @@ void closingdialog::init (Gtk::Window *windt, Gtk::Main *runt)
 	}
 	
 	close_win=transform_to_rptr<Gtk::Window>(builder->get_object("closedialog"));
-	close_win->set_deletable (false);
+	//close_win->set_deletable (false);
 	close_win->set_skip_pager_hint (true);
 	close_win->hide();
+	close_win->set_type_hint(Gdk::WINDOW_TYPE_HINT_DIALOG ) ;
 	close_win->signal_window_state_event().connect (sigc::mem_fun(*this,&closingdialog::stopiconify));
 
 	//close_win
@@ -118,15 +110,16 @@ void closingdialog::toggleextreme(bool shall_extreme=true)
 	if(shall_extreme)
 	{
 		
-		if (shall_fullscreen==false)
-		{
-			extreme->set(Gtk::StockID("gtk-fullscreen"),Gtk::IconSize (96));
-			extremeb->signal_clicked ().connect(sigc::mem_fun(*this,&closingdialog::maximize));
-		}
-		else
+		if (shall_fullscreen==true)
 		{
 			extreme->set(Gtk::StockID("gtk-fullscreen"),Gtk::IconSize (96));
 			extremeb->signal_clicked ().connect(sigc::mem_fun(*this,&closingdialog::fullscreen));
+		}
+		else
+		{
+
+			extreme->set(Gtk::StockID("gtk-fullscreen"),Gtk::IconSize (96));
+			extremeb->signal_clicked ().connect(sigc::mem_fun(*this,&closingdialog::maximize));
 		}
 	}
 	else
@@ -139,15 +132,6 @@ void closingdialog::toggleextreme(bool shall_extreme=true)
 	}
 }
 
-
-bool closingdialog::get_window_state_event(GdkEventWindowState* eventt)
-{
-		if (eventt->new_window_state==GDK_WINDOW_STATE_MAXIMIZED || eventt->new_window_state==GDK_WINDOW_STATE_FULLSCREEN)
-		{
-			is_extreme=true;
-		}
-	return false;
-}
 
 bool closingdialog::stopiconify(GdkEventWindowState* eventt)
 {
@@ -173,9 +157,12 @@ void closingdialog::run()
 {
 	if (run_main!=0 && wind!=0)
 	{
-
-		//if (Gdk::Window(*wind).get_state() ==(Gdk::WINDOW_STATE_MAXIMIZED ))
-		if (is_extreme)
+		//std::cerr << wind_gdk->get_state() << std::endl;
+		//std::cerr << Gdk::WINDOW_STATE_MAXIMIZED << std::endl;
+		//std::cerr << (Gdk::WINDOW_STATE_MAXIMIZED | Gdk::WINDOW_STATE_FULLSCREEN ) << std::endl;
+		//doesn't look nice; Where the hell is a documentation?
+		if (wind_gdk->get_state() == 132 || wind_gdk->get_state() ==144)
+		//if (is_extreme)
 		{
 			toggleextreme(false);
 		}
@@ -183,7 +170,6 @@ void closingdialog::run()
 		{
 			toggleextreme(true);
 		}
-		
 		
 		close_win->set_transient_for (*wind);
 		wind->set_opacity (0.8);
@@ -200,14 +186,12 @@ void closingdialog::fullscreen()
 {
 	endrunit();
 	wind->fullscreen();
-	is_extreme=true;
 }
 
 void closingdialog::maximize()
 {
 	endrunit();
 	wind->maximize();
-	is_extreme=true;
 }
 
 void closingdialog::iconify()
@@ -221,7 +205,6 @@ void closingdialog::normalize()
 	endrunit();
 	wind->unmaximize();
 	wind->unfullscreen();
-	is_extreme=false;
 	
 }
 
