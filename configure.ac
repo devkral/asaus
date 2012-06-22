@@ -13,9 +13,6 @@ AC_PROG_CXX
 
 
 
-
-
-
 LT_INIT
 
 
@@ -30,5 +27,6 @@ AC_OUTPUT([
 Makefile
 src/Makefile
 src/applications/Makefile
+src/ui/Makefile
 
 ])

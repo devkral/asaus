@@ -9,7 +9,8 @@
 
 Makefile
 !Makefile.am
-!Makefile.in
+#can be eliminated
+Makefile.in
 
 /Debug
 

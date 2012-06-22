@@ -11,5 +11,5 @@ EXTRA_DIST = $(link_DATA)
 
 
 # Remove doc directory on uninstall
-uninstall-local:
-	-rm -r $(linkdir)
+# uninstall-local:
+# 	-rm -r $(linkdir)

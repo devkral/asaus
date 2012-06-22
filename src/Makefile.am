@@ -2,17 +2,6 @@
 
 ## Created by Anjuta
 
-
-uidir =$(pkgdatadir)/ui
-ui_DATA = ui/asaus.ui \
-	ui/downleft.png \
-	ui/downright.png \
-	ui/topleft.png \
-	ui/topright.png \
-	ui/closedialog.ui \
-	ui/asaus.png
-
-
 AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(localedir)"\" \
 	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
@@ -47,14 +36,9 @@ asaus_LDFLAGS =
 
 asaus_LDADD = $(ASAUS_LIBS)
 
-
-EXTRA_DIST = $(ui_DATA)
-
-# Remove ui directory on uninstall
-uninstall-local:
-	-rm -r $(uidir)
-	-rm -r $(pkgdatadir)
-
+# uninstall-local:
+#  	-rm -r $(pkgdatadir)
 
 SUBDIRS = \
-	applications
+	applications \
+	ui
