@@ -10,8 +10,9 @@ ui_DATA = asaus.ui \
 	closedialog.ui \
 	asaus.png
 
-# EXTRA_DIST = $(ui_DATA)
+EXTRA_DIST = \
+	asaus.xcf
 
 # Remove ui directory on uninstall
-# uninstall-local:
-# 	-rm -r $(uidir)
+uninstall-local:
+	-rm -r $(uidir)
