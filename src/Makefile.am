@@ -37,7 +37,7 @@ asaus_LDFLAGS =
 asaus_LDADD = $(ASAUS_LIBS)
 
 uninstall-local:
- 	-rm -r $(pkgdatadir)
+	-rm -r $(pkgdatadir)
 
 SUBDIRS = \
 	applications \
