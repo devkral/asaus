@@ -42,6 +42,7 @@ protected:
 
 	
 private:
+	Gdk::RGBA grey;
 	Gtk::Window *wind;
 	Glib::RefPtr<Gdk::Window> wind_gdk;
 	Gtk::Main *run_main;

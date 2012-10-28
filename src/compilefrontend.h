@@ -46,8 +46,9 @@ protected:
 private:
 	terminal ownterm;
 
-
+	std::string filesuffix(std::string inputstr);
 	void tacticgcc();
+	void tacticgxx();
 	void tacticmake(std::string loc);
 	void tacticautogen(std::string loc);
 	

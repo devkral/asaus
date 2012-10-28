@@ -54,6 +54,8 @@ closingdialog::closingdialog (bool fullscreent)
 void closingdialog::init (Gtk::Window *windt, Gtk::Main *runt)
 {
 	wind=windt;
+	grey=Gdk::RGBA();
+	grey.set_rgba(0.5,0.5,0.5,1);
 	wind_gdk=wind->get_window();
 	run_main=runt;
 	
@@ -80,7 +82,8 @@ void closingdialog::init (Gtk::Window *windt, Gtk::Main *runt)
 	
 	close_win=transform_to_rptr<Gtk::Window>(builder->get_object("closedialog"));
 	//close_win->set_deletable (false);
-	close_win->set_skip_pager_hint (true);
+	close_win->override_background_color(grey);
+//close_win->set_skip_pager_hint (true);
 	close_win->hide();
 	close_win->set_type_hint(Gdk::WINDOW_TYPE_HINT_DIALOG ) ;
 	close_win->signal_window_state_event().connect (sigc::mem_fun(*this,&closingdialog::stopiconify));
@@ -88,10 +91,15 @@ void closingdialog::init (Gtk::Window *windt, Gtk::Main *runt)
 	//close_win
 	
 	Glib::RefPtr<Gtk::Button> minimize=transform_to_rptr<Gtk::Button>(builder->get_object("minimize"));
+	//minimize->override_background_color(grey);
 	minimize->signal_clicked ().connect(sigc::mem_fun(*this,&closingdialog::iconify));
+	
 	Glib::RefPtr<Gtk::Button> back=transform_to_rptr<Gtk::Button>(builder->get_object("back"));
+	//back->override_background_color(grey);
 	back->signal_clicked ().connect(sigc::mem_fun(*this,&closingdialog::go_back));
+
 	Glib::RefPtr<Gtk::Button> close=transform_to_rptr<Gtk::Button>(builder->get_object("close"));
+	//close->override_background_color(grey);
 	close->signal_clicked ().connect(sigc::mem_fun(*this,&closingdialog::close_prog));
 
 	extreme=transform_to_rptr<Gtk::Image>(builder->get_object("extreme"));

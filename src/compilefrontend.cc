@@ -77,6 +77,12 @@ std::string compilefrontend::gflagtrans()
 	return temp;
 }
 
+std::string compilefrontend::filesuffix(std::string inputstr)
+{
+	unsigned int pathlength=inputstr.length();
+	return inputstr.substr(inputstr.rfind("."));
+}
+
 
 Gtk::Widget *compilefrontend::givevteterm()
 {
@@ -84,6 +90,11 @@ Gtk::Widget *compilefrontend::givevteterm()
 }
 
 void compilefrontend::tacticgcc()
+{
+	std::string summaryc="/usr/bin/gcc -Wall "+prepare()+"\n";
+	ownterm.feedexe(summaryc);
+}
+void compilefrontend::tacticgxx()
 {
 	std::string summaryc="/usr/bin/g++ -Wall "+prepare()+"\n";
 	ownterm.feedexe(summaryc);
@@ -108,21 +119,23 @@ void compilefrontend::compile()
 	if(refback->fileentrylength()>0)
 	{
 		Glib::RefPtr<Gio::File> temp = Gio::File::create_for_path (refback->getfilepath());
-		if (temp->query_exists ())
+		if (temp->query_exists () | temp->query_file_type()  == Gio::FILE_TYPE_SYMBOLIC_LINK | temp->query_file_type()  == Gio::FILE_TYPE_REGULAR)
 		{
 			refback->unsetcolor();
 			std::string testmakeautogen= temp->get_basename ();
+			std::string filesuftemp =filesuffix(testmakeautogen);
 			Glib::RefPtr<Gio::File> parent=temp->get_parent();
 			if (testmakeautogen=="Makefile")
 				tacticmake(parent->get_path());
 			else if (testmakeautogen=="autogen.sh")
 				tacticautogen(parent->get_path());
-			else if (temp->query_file_type()  == Gio::FILE_TYPE_SYMBOLIC_LINK | temp->query_file_type()  == Gio::FILE_TYPE_REGULAR)
-			{
-				tacticgcc();
-			}
+			else if (filesuftemp==".cc" | filesuftemp==".cp" | filesuftemp==".cxx" \
+			         | filesuftemp==".cpp" | filesuftemp==".cPP"| filesuftemp==".c++" | filesuftemp==".C")
+				tacticgxx();
 			else
-				ownterm.feedtext("Unknown file type\n");
+				tacticgcc();
+			//else
+			//	ownterm.feedtext("Unknown file type\n");
 		}
 		else
 		{
