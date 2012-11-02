@@ -148,13 +148,13 @@ void compilefrontend::compile()
 		else
 		{
 			refback->paintitred();
-			ownterm.feedtext("Path doesn't exist\r");
+			ownterm.feedtext("Path doesn't exist\n");
 		}
 	}
 	else
 	{
 		refback->paintitred();
-		ownterm.feedtext("Path entry is empty\r");
+		ownterm.feedtext("Path entry is empty\n");
 	}
 }
 
