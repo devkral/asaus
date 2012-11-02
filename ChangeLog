@@ -1,3 +1,7 @@
+Nov 2 2012
+-make buttons aware of dropped data (compile button to compile, execute button to execute)
+-fix nasty bug crashing asaus when trying to compile Makefile.
+
 May 14 2012
 major rework
 

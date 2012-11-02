@@ -36,6 +36,7 @@ public:
 	~compilefrontend();
 	void compile();
 	Gtk::Widget *givevteterm();
+	std::string filesuffix(std::string inputstr);
 protected:
 #if GCC_VERSION < 40700
 	gui* refback;
@@ -46,7 +47,6 @@ protected:
 private:
 	terminal ownterm;
 
-	std::string filesuffix(std::string inputstr);
 	void tacticgcc();
 	void tacticgxx();
 	void tacticmake(std::string loc);

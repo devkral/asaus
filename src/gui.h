@@ -59,7 +59,11 @@ public:
 
 	int fileentrylength();
 
-	void drag_data_get(const Glib::RefPtr<Gdk::DragContext>& context, int, int,
+	void drag_insert_as_path(const Glib::RefPtr<Gdk::DragContext>& context, int, int,
+          const Gtk::SelectionData& selection_data, guint, guint time);
+    void drag_compile(const Glib::RefPtr<Gdk::DragContext>& context, int, int,
+          const Gtk::SelectionData& selection_data, guint, guint time);
+	void drag_execute(const Glib::RefPtr<Gdk::DragContext>& context, int, int,
           const Gtk::SelectionData& selection_data, guint, guint time);
 	
 	void startspin();

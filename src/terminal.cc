@@ -71,8 +71,8 @@ std::string terminal::makecompatible(std::string input)
 	for (int i=0;i<input.length();i++)
 	{
 		temp2+=input[i];
-		if (input[i+1]==' ')
-			temp2+="\\";
+			if (input[i+1]==' ')
+				temp2+="\\";
 	}
 	return temp2;
 }

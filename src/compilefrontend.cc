@@ -38,7 +38,7 @@ std::string compilefrontend::prepare()
 {
 	std::string patho=refback->getfilepath();
 	unsigned int pathlength=patho.length();
-	if (refback->getfilepath().rfind(".")>=pathlength-4 && refback->getfilepath().rfind(".") <=pathlength)
+	if (refback->getfilepath().rfind(".")>=pathlength-4 && refback->getfilepath().rfind(".") !=std::string::npos)
 		patho.erase(patho.rfind("."),pathlength);
 	else
 	{
@@ -77,10 +77,12 @@ std::string compilefrontend::gflagtrans()
 	return temp;
 }
 
-std::string compilefrontend::filesuffix(std::string inputstr)
+std::string compilefrontend::filesuffix(std::string inputstr) //output .xy or "" (no suffix)
 {
-	unsigned int pathlength=inputstr.length();
-	return inputstr.substr(inputstr.rfind("."));
+	if(inputstr.rfind(".")!=std::string::npos)
+		return inputstr.substr(inputstr.rfind("."));
+	else
+		return "";
 }
 
 
@@ -102,14 +104,14 @@ void compilefrontend::tacticgxx()
 
 void compilefrontend::tacticmake(std::string loc)
 {
-	std::string summaryc="cd "+ownterm.makecompatible(loc)+";make "+refback->getcompileargs()+"\n";
+	std::string summaryc="cd "+ownterm.makecompatible(loc)+" ; make "+refback->getcompileargs()+"\n";
 	ownterm.feedexe(summaryc);
 }
 
 void compilefrontend::tacticautogen(std::string loc)
 {
-	refback->unsetcolor();
-	std::string summaryc="cd "+ownterm.makecompatible(loc)+";autogen "+refback->getcompileargs()+"\n";
+	//refback->unsetcolor();
+	std::string summaryc="cd "+ownterm.makecompatible(loc)+" ; ./autogen.sh "+refback->getcompileargs()+"\n";
 	ownterm.feedexe(summaryc);
 }
 
@@ -126,27 +128,33 @@ void compilefrontend::compile()
 			std::string filesuftemp =filesuffix(testmakeautogen);
 			Glib::RefPtr<Gio::File> parent=temp->get_parent();
 			if (testmakeautogen=="Makefile")
+			{
 				tacticmake(parent->get_path());
+			}
 			else if (testmakeautogen=="autogen.sh")
 				tacticautogen(parent->get_path());
 			else if (filesuftemp==".cc" | filesuftemp==".cp" | filesuftemp==".cxx" \
 			         | filesuftemp==".cpp" | filesuftemp==".cPP"| filesuftemp==".c++" | filesuftemp==".C")
 				tacticgxx();
 			else
+			{
+				std::cerr << "unrecognized file; try gcc\n";
 				tacticgcc();
+			
+			}
 			//else
 			//	ownterm.feedtext("Unknown file type\n");
 		}
 		else
 		{
 			refback->paintitred();
-			ownterm.feedtext("Path doesn't exist\n");
+			ownterm.feedtext("Path doesn't exist\r");
 		}
 	}
 	else
 	{
 		refback->paintitred();
-		ownterm.feedtext("Path entry is empty\n");
+		ownterm.feedtext("Path entry is empty\r");
 	}
 }
 

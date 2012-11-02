@@ -87,14 +87,12 @@ gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethr
 	Targets.push_back( Gtk::TargetEntry("STRING") );
 	Targets.push_back( Gtk::TargetEntry("text/plain") );
 	main_win->drag_dest_set(Targets);
-	main_win->signal_drag_data_received().connect(sigc::mem_fun(*this, &gui::drag_data_get));
+	main_win->signal_drag_data_received().connect(sigc::mem_fun(*this, &gui::drag_insert_as_path));
 
-	
-	//init closebutton
+		//init closebutton
 	main_win->signal_delete_event().connect(sigc::mem_fun(*this,&gui::closebutton));
 
-	
-	//init hide completely
+		//init hide completely
 	main_win->signal_window_state_event().connect (sigc::mem_fun(*this,&gui::on_my_window_state_event));
 	
 	//Spinner
@@ -137,15 +135,21 @@ gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethr
 	//change to execute and execute then
 	execute=transform_to_rptr<Gtk::Button>(builder->get_object("execute"));
 	execute->signal_clicked ().connect(sigc::mem_fun(*this,&gui::exeact));
+	execute->drag_dest_set(Targets);
+	execute->signal_drag_data_received().connect(sigc::mem_fun(*this, &gui::drag_execute));
 	//change to compile and compile then
 	compilebutton=transform_to_rptr<Gtk::Button>(builder->get_object("compile"));
 	compilebutton->signal_clicked ().connect(sigc::mem_fun(*this,&gui::compact));
+	compilebutton->drag_dest_set(Targets);
+	compilebutton->signal_drag_data_received().connect(sigc::mem_fun(*this, &gui::drag_compile));
+	
 
 	//filechoose
 	filechoosebutton=transform_to_rptr<Gtk::Button>(builder->get_object("filechoosebutton"));
 	filechoosebutton->signal_clicked ().connect(sigc::mem_fun(*this,&gui::fileact));
 	fileentry=transform_to_rptr<Gtk::Entry>(builder->get_object("fileentry"));
-	fileentry->signal_editing_done().connect(sigc::mem_fun(*this,&gui::paintitwhite));
+	//fileentry->signal_editing_done().connect(sigc::mem_fun(*this,&gui::paintitwhite));
+	fileentry->signal_activate().connect(sigc::mem_fun(*this,&gui::paintitwhite));
 	lastfile="";
 
 	spinner1->hide();
@@ -281,24 +285,6 @@ void gui::compact()
 
 }
 
-
-
-/**
-void gui::compacthelper()
-{
-if(blockcompile.try_lock())
-	{
-#ifdef STD_THREAD_CALL
-		c11_threadc=std::thread(compacthelper2, this);
-#else
-		pthread_create(&p_threadc,NULL,&gui::compacthelper2,this);
-#endif //STD_THREAD_CALL
-	}
-
-}
-
-*/ //not needed anymore
-
 void gui::fileact()
 {
 	Gtk::FileChooserDialog select("Please choose a file", Gtk::FILE_CHOOSER_ACTION_OPEN);
@@ -328,7 +314,7 @@ void gui::paintitred()
 void gui::paintitwhite()
 {
 	//fileentry->override_background_color (black);
-	
+	fileentry->reset_im_context ();
 	
 }
 
@@ -342,7 +328,7 @@ int gui::fileentrylength()
 	fileentry->get_text_length();
 }
 
-void gui::drag_data_get(const Glib::RefPtr<Gdk::DragContext>& context, int, int,
+void gui::drag_insert_as_path(const Glib::RefPtr<Gdk::DragContext>& context, int, int,
           const Gtk::SelectionData& selection_data, guint, guint time)
 {
 	std::string temp=selection_data.get_data_as_string();
@@ -350,6 +336,30 @@ void gui::drag_data_get(const Glib::RefPtr<Gdk::DragContext>& context, int, int,
     temp=Glib::filename_from_uri (temp );
 
 	fileentry->set_text(temp);
+	context->drag_finish(false, true, time);	
+}
+
+void gui::drag_compile(const Glib::RefPtr<Gdk::DragContext>& context, int, int,
+          const Gtk::SelectionData& selection_data, guint, guint time)
+{
+	std::string temp=selection_data.get_data_as_string();
+	temp=temp.erase(temp.length()-2,temp.length());
+    temp=Glib::filename_from_uri (temp );
+
+	fileentry->set_text(temp);
+	compact();
+	context->drag_finish(false, true, time);	
+}
+
+void gui::drag_execute(const Glib::RefPtr<Gdk::DragContext>& context, int, int,
+          const Gtk::SelectionData& selection_data, guint, guint time)
+{
+	std::string temp=selection_data.get_data_as_string();
+	temp=temp.erase(temp.length()-2,temp.length());
+    temp=Glib::filename_from_uri (temp );
+
+	fileentry->set_text(temp);
+	exeact();
 	context->drag_finish(false, true, time);	
 }
 
