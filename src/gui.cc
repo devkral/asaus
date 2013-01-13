@@ -46,7 +46,12 @@ void closedialog(Gtk::Window)
 {
 }*/
 	
-
+bool testdir(Glib::ustring file)
+{
+   struct stat statbuf;
+   stat(file.c_str(), &statbuf);
+   return S_ISDIR(statbuf.st_mode);
+}
 
 
 gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethread(this),iconthread(this)
@@ -288,7 +293,11 @@ void gui::compact()
 void gui::fileact()
 {
 	Gtk::FileChooserDialog select("Please choose a file", Gtk::FILE_CHOOSER_ACTION_OPEN);
-	select.set_filename (lastfile);
+	if(testdir(lastfile))
+		select.set_current_folder (lastfile);
+	else
+		select.set_filename (lastfile);
+	
 	select.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
 	select.add_button("Select", Gtk::RESPONSE_OK);
 	switch
