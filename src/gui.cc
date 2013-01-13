@@ -150,7 +150,7 @@ gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethr
 	fileentry=transform_to_rptr<Gtk::Entry>(builder->get_object("fileentry"));
 	//fileentry->signal_editing_done().connect(sigc::mem_fun(*this,&gui::paintitwhite));
 	fileentry->signal_activate().connect(sigc::mem_fun(*this,&gui::paintitwhite));
-	lastfile="";
+	lastfile=getenv("HOME");
 
 	spinner1->hide();
 
