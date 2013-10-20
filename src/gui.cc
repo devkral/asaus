@@ -95,7 +95,7 @@ gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethr
 	main_win->signal_drag_data_received().connect(sigc::mem_fun(*this, &gui::drag_insert_as_path));
 
 		//init closebutton
-	main_win->signal_delete_event().connect(sigc::mem_fun(*this,&gui::closebutton));
+	//main_win->signal_delete_event().connect(sigc::mem_fun(*this,&gui::closebutton));
 
 		//init hide completely
 	main_win->signal_window_state_event().connect (sigc::mem_fun(*this,&gui::on_my_window_state_event));
@@ -160,7 +160,7 @@ gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethr
 	spinner1->hide();
 
 	settermspace(*compilethread.givevteterm());
-	closedia.init(main_win.operator->(), &kit);
+	//closedia.init(main_win.operator->(), &kit);
 	kit.run();
 }
 

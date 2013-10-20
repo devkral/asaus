@@ -24,7 +24,7 @@
 #include "executecode.h"
 #include "statusicon.h"
 
-#include "closingdialog.h"
+//#include "closingdialog.h"
 
 //#include <mutex>
 //#include <cstdlib>
@@ -84,7 +84,7 @@ protected:
 private:
 	Gtk::Main kit;
 	Glib::RefPtr<Gtk::Builder> builder;
-	closingdialog closedia;
+	//closingdialog closedia;
 
 	Gdk::RGBA red;
 	Gdk::RGBA white;
