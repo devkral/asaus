@@ -41,10 +41,11 @@ transform_to_rptr(const Glib::RefPtr< Glib::Object >& p)
 {
 	return Glib::RefPtr<T_CppObject>::cast_dynamic(p);
 }
-/**
+
 void closedialog(Gtk::Window)
 {
-}*/
+	exit(1);
+}
 	
 bool testdir(Glib::ustring file)
 {
@@ -95,7 +96,7 @@ gui::gui(int argc, char *argv[]) : kit(argc,argv),compilethread(this),executethr
 	main_win->signal_drag_data_received().connect(sigc::mem_fun(*this, &gui::drag_insert_as_path));
 
 		//init closebutton
-	//main_win->signal_delete_event().connect(sigc::mem_fun(*this,&gui::closebutton));
+	main_win->signal_delete_event().connect(sigc::mem_fun(*this,&gui::closebutton));
 
 		//init hide completely
 	main_win->signal_window_state_event().connect (sigc::mem_fun(*this,&gui::on_my_window_state_event));
@@ -404,6 +405,7 @@ bool gui::closebutton(GdkEventAny*)
 	*/
 	;
 	//closedia.run();
+    exit(0);
 	return true;
 /**
 
