@@ -36,6 +36,9 @@ asaus_LDFLAGS =
 
 asaus_LDADD = $(ASAUS_LIBS)
 
+#install-local:
+#	-mkdir -m755 $(pkgdatadir)
+
 uninstall-local:
 	-rm -r $(pkgdatadir)
 

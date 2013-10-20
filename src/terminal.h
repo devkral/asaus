@@ -19,18 +19,23 @@
 
 
 
-#include <string>
-#include <gtkmm.h>
-#include <memory>
-
-
+/**
 //https://jazzy.wordpress.com/2006/06/20/how-to-get-gcc-version-on-compile-time/
 #define GCC_VERSION (__GNUC__ * 10000 \
                                + __GNUC_MINOR__ * 100 \
                                + __GNUC_PATCHLEVEL__)
 
+*/
+
+
 #ifndef _TERMINAL_H_
 #define _TERMINAL_H_
+
+
+#include <string>
+#include <gtkmm.h>
+#include <memory>
+
 
 class terminal
 {
@@ -48,16 +53,16 @@ protected:
 private:
 
 //because gcc < 4.7 don't understand this declaration type
-#if GCC_VERSION < 40700
+/**#if GCC_VERSION < 40700
 	GtkWidget* vteterm;
 	Gtk::Widget* vtetermcc;
 	GError *err;
-#else
+#else*/
 	GtkWidget* vteterm=0;
 	Gtk::Widget* vtetermcc=0;
 	//neccessary for vte_terminal_fork_command_full
 	GError* err=0;
-#endif
+//#endif
 	
 	GPid pidterm;
 	

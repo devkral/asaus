@@ -93,12 +93,12 @@ Gtk::Widget *compilefrontend::givevteterm()
 
 void compilefrontend::tacticgcc()
 {
-	std::string summaryc="/usr/bin/gcc -Wall "+prepare()+"\n";
+	std::string summaryc="\"$CC\" -Wall "+prepare()+"\n";
 	ownterm.feedexe(summaryc);
 }
 void compilefrontend::tacticgxx()
 {
-	std::string summaryc="/usr/bin/g++ -Wall "+prepare()+"\n";
+	std::string summaryc="\"$CXX\" -Wall "+prepare()+"\n";
 	ownterm.feedexe(summaryc);
 }
 
