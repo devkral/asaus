@@ -403,7 +403,7 @@ bool gui::closebutton(GdkEventAny*)
 	topright->set(PACKAGE_DATA_DIR"/ui/topleft.png");
 	*/
 	;
-	closedia.run();
+	//closedia.run();
 	return true;
 /**
 
