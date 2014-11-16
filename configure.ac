@@ -19,7 +19,7 @@ LT_INIT
 
 
 
-PKG_CHECK_MODULES(ASAUS, gtkmm-3.0 vte-2.90[ ])
+PKG_CHECK_MODULES(ASAUS, gtkmm-3.0 vte-2.91[ ])
 
 
 
